@@ -68,7 +68,7 @@ export default function Home() {
         <section id="services" className="bg-white px-6 py-12 md:py-20">
           <div className="mx-auto max-w-7xl">
             <Eyebrow>Lorem ipsum</Eyebrow>
-            <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance sm:w-2/4">
+            <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
               Lorem ipsum dolor sit amet consectetur adipisicing
             </h2>
             <ul className="grid grid-cols-12 gap-4">
@@ -98,7 +98,7 @@ export default function Home() {
         <section id="why-choose-us" className="bg-white px-6 py-12">
           <div className="mx-auto max-w-7xl">
             <Eyebrow>{WHY_CHOOSE_US_SECTION.eyebrow}</Eyebrow>
-            <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance sm:w-2/4">
+            <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
               {WHY_CHOOSE_US_SECTION.title}
             </h2>
             <div className="grid grid-cols-12 gap-6">
@@ -122,7 +122,7 @@ export default function Home() {
         <section className="bg-white px-6 py-12 md:py-20">
           <div className="mx-auto max-w-7xl">
             <Eyebrow>{VIDEO_CAROUSEL_SECTION.eyebrow}</Eyebrow>
-            <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance sm:w-2/4">
+            <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
               {VIDEO_CAROUSEL_SECTION.title}
             </h2>
             <VideoCarousel videos={VIDEO_CAROUSEL_SECTION.videos} />

@@ -58,7 +58,7 @@ export default function MapSection() {
     <section className="w-full bg-white pt-12">
       <div className="mx-auto max-w-7xl px-6 pb-10">
         <Eyebrow>Lorem ipsum</Eyebrow>
-        <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance sm:w-2/4">
+        <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
           Lorem ipsum dolor sit amet consectetur adipisicing
         </h2>
       </div>
