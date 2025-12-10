@@ -30,11 +30,27 @@ export default function MapSection() {
       interactive: true,
     });
 
-    // Prevent map from taking focus
-    const canvas = mapContainer.current.querySelector("canvas");
-    if (canvas) {
-      canvas.setAttribute("tabindex", "-1");
-    }
+    // Prevent map from taking focus and causing scroll jumps
+    const preventFocus = () => {
+      const canvas = mapContainer.current?.querySelector("canvas");
+      if (canvas) {
+        canvas.setAttribute("tabindex", "-1");
+        canvas.style.outline = "none";
+      }
+
+      // Prevent all focusable elements within the map
+      const focusableElements = mapContainer.current?.querySelectorAll(
+        'a, button, input, [tabindex]:not([tabindex="-1"])'
+      );
+      focusableElements?.forEach((el) => {
+        el.setAttribute("tabindex", "-1");
+      });
+    };
+
+    preventFocus();
+
+    // Run again after map loads to catch dynamically added elements
+    map.current.on("load", preventFocus);
 
     map.current.on("load", () => {
       // Ocultar todos los POIs (puntos de interés)
@@ -64,10 +80,12 @@ export default function MapSection() {
       closeButton: false,
       closeOnClick: false,
       className: "custom-popup",
+      focusAfterOpen: false,
     }).setHTML(`
         <a
           href="${mapUrl}"
           ${!isMobile ? 'target="_blank" rel="noopener noreferrer"' : ""}
+          tabindex="-1"
           style="display: block; padding: 12px 16px; text-decoration: none; cursor: pointer; transition: background-color 0.2s;"
           onmouseover="this.style.backgroundColor='#f7fafc'"
           onmouseout="this.style.backgroundColor='white'"
