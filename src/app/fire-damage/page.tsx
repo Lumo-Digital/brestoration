@@ -1,11 +1,41 @@
+"use client";
+
 import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Eyebrow from "@/components/Eyebrow";
 import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
 import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
 
+gsap.registerPlugin(ScrollTrigger);
+
 export default function FireDamage() {
+  const pinnedRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pinnedRef.current || !scrollRef.current) return;
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      ScrollTrigger.create({
+        trigger: scrollRef.current,
+        start: "top top+=80",
+        endTrigger: scrollRef.current,
+        end: "bottom 30%",
+        pin: pinnedRef.current,
+        pinSpacing: false,
+        markers: false, // debugging
+      });
+    });
+
+    return () => {
+      mm.revert();
+    };
+  }, []);
   return (
     <main>
       <section
@@ -39,14 +69,28 @@ export default function FireDamage() {
         </div>
       </section>
       <section id="services" className="bg-white px-6 py-12 md:py-20">
-        <div className="mx-auto grid max-w-7xl grid-cols-12 gap-20">
-          <div className="col-span-4 flex flex-col items-start">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-12 md:gap-20">
+          <div
+            ref={pinnedRef}
+            className="flex flex-col items-start md:col-span-4"
+          >
             <Eyebrow>Lorem ipsum</Eyebrow>
             <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
               Lorem ipsum dolor sit amet consectetur adipisicing
             </h2>
           </div>
-          <div className="col-span-8 flex flex-col gap-10">
+          <div
+            ref={scrollRef}
+            className="relative flex flex-col gap-10 md:col-span-8"
+          >
+            {/* Línea vertical con gradient que se desvanece al final */}
+            <div
+              className="absolute top-6 bottom-0 left-4.5 w-0.5"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
+              }}
+            />
             <div className="flex gap-10">
               <div className="mb-6 flex items-start justify-center">
                 <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">

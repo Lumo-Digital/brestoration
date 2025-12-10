@@ -3,6 +3,7 @@ import { Montserrat } from "next/font/google";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import SmoothScrolling from "@/components/SmoothScrolling";
 import "./globals.css";
 
 const montserratSans = Montserrat({
@@ -21,12 +22,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <body className={`${montserratSans.variable} antialiased`}>
-        <ScrollToTop />
-        <Header />
-        {children}
-        <Footer />
+        <SmoothScrolling>
+          <ScrollToTop />
+          <Header />
+          {children}
+          <Footer />
+        </SmoothScrolling>
       </body>
     </html>
   );
