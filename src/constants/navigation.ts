@@ -5,7 +5,7 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { label: "Why choose us", href: "#nosotros" },
-  { label: "Contact", href: "#contacto" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export const CTA_BUTTONS = {

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-dark-blue">
+    <footer className="bg-brand-dark-blue pt-16">
       <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-8 px-6 pb-6 lg:gap-0">
         <div className="col-span-12 flex items-start justify-between md:col-span-3 lg:col-span-3">
           <Image
@@ -20,16 +20,44 @@ export default function Footer() {
           </h3>
           <ul className="flex flex-col gap-2 p-0">
             <li>
-              <Link href={"/"}>Link 1</Link>
+              <Link
+                href={"/"}
+                className="text-white transition-colors hover:text-gray-300"
+              >
+                Home
+              </Link>
             </li>
             <li>
-              <Link href={"/"}>Link 2</Link>
+              <Link
+                href={"/fire-damage"}
+                className="text-white transition-colors hover:text-gray-300"
+              >
+                Fire Damage
+              </Link>
             </li>
             <li>
-              <Link href={"/"}>Link 3</Link>
+              <Link
+                href={"/mold-evaluation"}
+                className="text-white transition-colors hover:text-gray-300"
+              >
+                Mold Evaluation
+              </Link>
             </li>
             <li>
-              <Link href={"/"}>Link 4</Link>
+              <Link
+                href={"/water-damage"}
+                className="text-white transition-colors hover:text-gray-300"
+              >
+                Water Damage
+              </Link>
+            </li>
+            <li>
+              <Link
+                href={"/free-assessment"}
+                className="text-white transition-colors hover:text-gray-300"
+              >
+                Free Assessment
+              </Link>
             </li>
           </ul>
         </div>
@@ -40,13 +68,21 @@ export default function Footer() {
           </h3>
           <ul className="flex flex-col gap-2 p-0">
             <li>
-              <Link href={"/"}>Social 1</Link>
+              <a
+                href={"https://www.instagram.com/bluerestoration.services"}
+                className="text-white transition-colors hover:text-gray-300"
+                target="_blank"
+              >
+                Instagram
+              </a>
             </li>
             <li>
-              <Link href={"/"}>Social 2</Link>
-            </li>
-            <li>
-              <Link href={"/"}>Social 3</Link>
+              <Link
+                href={"/"}
+                className="text-white transition-colors hover:text-gray-300"
+              >
+                Whatsapp
+              </Link>
             </li>
           </ul>
         </div>
@@ -60,17 +96,26 @@ export default function Footer() {
           </h3>
           <ul className="flex flex-col gap-2 p-0 md:text-right">
             <li>
-              <Link href="/" className="transition-colors hover:text-gray-300">
+              <a
+                href="mailto:info@brestorations.com"
+                className="text-white transition-colors hover:text-gray-300"
+              >
                 info@brestorations.com
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="/" className="transition-colors hover:text-gray-300">
+              <a
+                href="tel:+13054979125"
+                className="text-white transition-colors hover:text-gray-300"
+              >
                 +1 305 497 9125
-              </Link>
+              </a>
             </li>
             <li>
-              <Link href="#">
+              <Link
+                href="#"
+                className="text-white transition-colors hover:text-gray-300"
+              >
                 3625 NW 82nd Ave Suite 111
                 <br />
                 Doral, FL

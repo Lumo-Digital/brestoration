@@ -1,6 +1,7 @@
 export interface VideoItem {
   src: string;
-  caption: string;
+  thumb: string;
+  description: string;
 }
 
 export const HERO_VIDEO = {
@@ -14,15 +15,21 @@ export const VIDEO_CAROUSEL_SECTION = {
   videos: [
     {
       src: "/bg-video.mp4",
-      caption: "Ad lorem ipsum dolor sit amet",
+      thumb: "/video-thumb1.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna",
     },
     {
       src: "/bg-video.mp4",
-      caption: "Segundo video del carrusel",
+      thumb: "/video-thumb1.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna",
     },
     {
       src: "/bg-video.mp4",
-      caption: "Tercer video del carrusel",
+      thumb: "/video-thumb1.jpg",
+      description:
+        "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna",
     },
   ] as VideoItem[],
 } as const;

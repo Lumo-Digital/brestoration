@@ -12,6 +12,8 @@ const COORDINATES = {
   lat: 25.807710169885514,
 };
 
+const ADDRESS = "3625 NW 82nd Ave Suite 111, Doral, FL 33166";
+
 export default function MapSection() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
@@ -22,10 +24,17 @@ export default function MapSection() {
     map.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: "mapbox://styles/mapbox/streets-v12",
-      center: [COORDINATES.lng, COORDINATES.lat],
+      center: [COORDINATES.lng, COORDINATES.lat + 0.001],
       zoom: 15,
       scrollZoom: false,
+      interactive: true,
     });
+
+    // Prevent map from taking focus
+    const canvas = mapContainer.current.querySelector("canvas");
+    if (canvas) {
+      canvas.setAttribute("tabindex", "-1");
+    }
 
     map.current.on("load", () => {
       // Ocultar todos los POIs (puntos de interés)
@@ -45,9 +54,34 @@ export default function MapSection() {
 
     map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
 
+    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    const mapUrl = isMobile
+      ? `geo:${COORDINATES.lat},${COORDINATES.lng}?q=${encodeURIComponent(ADDRESS)}`
+      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
+
+    const popup = new mapboxgl.Popup({
+      offset: [0, -40],
+      closeButton: false,
+      closeOnClick: false,
+      className: "custom-popup",
+    }).setHTML(`
+        <a
+          href="${mapUrl}"
+          ${!isMobile ? 'target="_blank" rel="noopener noreferrer"' : ""}
+          style="display: block; padding: 12px 16px; text-decoration: none; cursor: pointer; transition: background-color 0.2s;"
+          onmouseover="this.style.backgroundColor='#f7fafc'"
+          onmouseout="this.style.backgroundColor='white'"
+        >
+          <p style="margin: 0; font-size: 14px; font-weight: 600; color: #1a202c;">Blue Restoration Services</p>
+          <p style="margin: 4px 0 0 0; font-size: 13px; color: #4a5568; line-height: 1.4;">${ADDRESS}</p>
+        </a>
+      `);
+
     new mapboxgl.Marker({ color: "#E63946" })
       .setLngLat([COORDINATES.lng, COORDINATES.lat])
       .addTo(map.current);
+
+    popup.setLngLat([COORDINATES.lng, COORDINATES.lat]).addTo(map.current);
 
     return () => {
       map.current?.remove();

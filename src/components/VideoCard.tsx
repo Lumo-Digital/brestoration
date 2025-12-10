@@ -12,7 +12,7 @@ export default function VideoCard({
   className,
 }: VideoCardProps) {
   return (
-    <div className={`relative aspect-square overflow-hidden ${className}`}>
+    <div className={`relative overflow-hidden ${className}`}>
       <video
         className={`h-full w-full object-cover`}
         preload="metadata"

@@ -26,7 +26,7 @@ export default function CallToAction() {
             quae, cumque accusantium sapiente adipisci explicabo quos, enim
             ducimus reprehenderit perspiciatis consequatur?
           </p>
-          <Link href="/" className="w-full sm:w-fit">
+          <Link href="/free-assessment" className="w-full sm:w-fit">
             <Button className="w-full">Book a free assessment</Button>
           </Link>
         </div>
