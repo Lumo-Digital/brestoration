@@ -31,6 +31,7 @@ export default function MapSection() {
     });
 
     // Prevent map from taking focus and causing scroll jumps
+    // This ensures the map doesn't interfere with page navigation
     const preventFocus = () => {
       const canvas = mapContainer.current?.querySelector("canvas");
       if (canvas) {
