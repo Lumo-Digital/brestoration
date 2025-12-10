@@ -9,6 +9,20 @@
   NODE_VERSION = "20"
   PNPM_VERSION = "10"
 
+# Branch deploy configuration
+[context.production]
+  command = "pnpm build"
+  publish = ".next"
+
+[context.dev]
+  command = "pnpm build"
+  publish = ".next"
+
+# Deploy previews for pull requests
+[context.deploy-preview]
+  command = "pnpm build"
+  publish = ".next"
+
 # Redirects
 [[redirects]]
   from = "/*"
