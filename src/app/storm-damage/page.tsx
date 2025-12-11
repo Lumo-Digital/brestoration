@@ -1,141 +1,229 @@
-import Link from "next/link";
-import Button from "@/components/Button";
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import Eyebrow from "@/components/Eyebrow";
+import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
-import { CTA_BUTTONS } from "@/constants";
-import { CloudLightning } from "lucide-react";
+import VideoCarousel from "@/components/VideoCarousel";
+import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function StormDamage() {
+  const pinnedRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pinnedRef.current || !scrollRef.current) return;
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      ScrollTrigger.create({
+        trigger: scrollRef.current,
+        start: "top top+=80",
+        endTrigger: scrollRef.current,
+        end: "bottom 30%",
+        pin: pinnedRef.current,
+        pinSpacing: false,
+        markers: false, // debugging
+      });
+    });
+
+    return () => {
+      mm.revert();
+    };
+  }, []);
   return (
     <main>
-      <section className="bg-white px-6 py-12 md:py-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8 flex items-center gap-4">
-            <CloudLightning className="text-brand-dark-blue h-12 w-12" />
-            <h1 className="text-4xl font-semibold md:text-5xl">
-              Storm Damage Restoration
-            </h1>
+      <section
+        id="hero"
+        className="relative flex h-[50dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[50dvh]"
+      >
+        <div className="absolute top-0 left-0 -z-1 h-full w-full">
+          <video
+            className="h-full w-full object-cover"
+            preload="metadata"
+            playsInline
+            autoPlay
+            loop
+            muted
+          >
+            <source src={HERO_VIDEO.src} type="video/mp4" />
+            {HERO_VIDEO.fallbackText}
+          </video>
+          <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
+        </div>
+
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
+          <h1 className="text-4xl font-semibold text-balance text-white lg:w-2/3">
+            Storm and Weather Damage Restoration
+          </h1>
+          <p className="text-balance text-white lg:w-2/3">
+            Emergency response for storm damage. From roof repairs to complete
+            restoration, we secure and restore your property after severe
+            weather events.
+          </p>
+        </div>
+      </section>
+      <section id="services" className="bg-white px-6 py-12 md:py-20">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-12 md:gap-20">
+          <div
+            ref={pinnedRef}
+            className="flex flex-col items-start md:col-span-4"
+          >
+            <Eyebrow>Emergency Response</Eyebrow>
+            <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
+              Complete Storm Damage Restoration Services
+            </h2>
           </div>
-
-          <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-12 lg:col-span-8">
-              <section className="mb-8">
-                <h2 className="mb-4 text-2xl font-semibold">
-                  Storm and Weather Damage Repair Services
-                </h2>
-                <p className="mb-4 text-lg leading-relaxed text-gray-700">
-                  Severe weather can cause extensive damage to your property,
-                  from roof damage and flooding to broken windows and structural
-                  issues. Our storm damage restoration team is ready to respond
-                  immediately to help protect and restore your property.
-                </p>
-                <p className="mb-4 text-lg leading-relaxed text-gray-700">
-                  We provide comprehensive storm damage restoration including
-                  emergency tarping, water extraction, structural repairs, and
-                  complete rebuilding services. Our experienced team works
-                  quickly to secure your property and prevent further damage.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h3 className="mb-4 text-xl font-semibold">Our Process</h3>
-                <ol className="space-y-4">
-                  <li className="flex gap-4">
-                    <span className="text-brand-dark-blue flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold">
-                      1
-                    </span>
-                    <div>
-                      <h4 className="font-semibold">Emergency Protection</h4>
-                      <p className="text-gray-700">
-                        Immediate response to secure property with tarping and
-                        board-up services
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="text-brand-dark-blue flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold">
-                      2
-                    </span>
-                    <div>
-                      <h4 className="font-semibold">Damage Assessment</h4>
-                      <p className="text-gray-700">
-                        Comprehensive inspection and documentation for insurance
-                        claims
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="text-brand-dark-blue flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold">
-                      3
-                    </span>
-                    <div>
-                      <h4 className="font-semibold">Complete Restoration</h4>
-                      <p className="text-gray-700">
-                        Full repair and restoration of all storm-damaged areas
-                      </p>
-                    </div>
-                  </li>
-                </ol>
-              </section>
-
-              <section className="mb-8">
-                <h3 className="mb-4 text-xl font-semibold">
-                  Types of Storm Damage We Handle
-                </h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Wind damage and fallen trees</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Hail damage to roofs and siding</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Hurricane and tornado damage</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Lightning strikes and electrical damage</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Flooding and water intrusion</span>
-                  </li>
-                </ul>
-              </section>
-            </div>
-
-            <div className="col-span-12 lg:col-span-4">
-              <div className="bg-brand-dark-blue sticky top-24 rounded-lg p-6 text-white">
-                <h3 className="mb-4 text-xl font-semibold">
-                  Emergency Storm Response
-                </h3>
-                <p className="mb-6">
-                  Available 24/7 for immediate storm damage assessment and
-                  repairs.
-                </p>
-                <div className="space-y-4">
-                  <Link
-                    href={CTA_BUTTONS.freeAssessment.href}
-                    className="block"
-                  >
-                    <Button className="w-full cursor-pointer">
-                      {CTA_BUTTONS.freeAssessment.label}
-                    </Button>
-                  </Link>
-                  <a href="tel:+123456789" className="block">
-                    <Button className="w-full cursor-pointer">
-                      {CTA_BUTTONS.emergency.label}
-                    </Button>
-                  </a>
+          <div
+            ref={scrollRef}
+            className="relative flex flex-col gap-10 md:col-span-8"
+          >
+            {/* Línea vertical con gradient que se desvanece al final */}
+            <div
+              className="absolute top-6 bottom-0 left-4.5 w-0.5"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
+              }}
+            />
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    1
+                  </span>
                 </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Emergency protection"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Immediate response to secure your property with emergency
+                  tarping, board-up services, and temporary protection against
+                  further weather damage.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    2
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Damage assessment"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Comprehensive inspection and detailed documentation of all
+                  storm damage for insurance claims, including photos and
+                  written reports.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    3
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Water removal"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Professional water extraction and drying services to address
+                  any flooding or water intrusion caused by the storm event.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    4
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Structural repairs"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Expert structural repairs including roof reconstruction,
+                  siding replacement, window installation, and framework
+                  restoration.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    5
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Complete restoration"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Full restoration of all storm-damaged areas, returning your
+                  property to pre-loss condition with quality craftsmanship and
+                  attention to detail.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      <section className="bg-white px-6 py-12 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <Eyebrow>{VIDEO_CAROUSEL_SECTION.eyebrow}</Eyebrow>
+          <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
+            {VIDEO_CAROUSEL_SECTION.title}
+          </h2>
+          <VideoCarousel videos={VIDEO_CAROUSEL_SECTION.videos} />
+        </div>
+      </section>
+      <MapSection />
       <section id="cta" className="relative">
         <CallToAction />
       </section>

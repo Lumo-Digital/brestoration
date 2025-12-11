@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import Button from "@/components/Button";
 import { SERVICES, CTA_BUTTONS } from "@/constants";
+import { smoothScrollTo } from "@/utils/smoothScroll";
 
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -25,6 +26,11 @@ export default function Header() {
         "_blank"
       );
     }
+  };
+
+  const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    smoothScrollTo("#contact", { offset: -80, duration: 1.2 });
   };
 
   return (
@@ -85,6 +91,7 @@ export default function Header() {
 
           <a
             href="#contact"
+            onClick={handleContactClick}
             className="text-white transition-colors hover:text-gray-300"
           >
             Contact

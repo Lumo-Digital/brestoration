@@ -4,13 +4,14 @@ import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Eyebrow from "@/components/Eyebrow";
 import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
 import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
 
-gsap.registerPlugin(ScrollTrigger);
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function FireDamage() {
   const pinnedRef = useRef<HTMLDivElement>(null);

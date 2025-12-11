@@ -1,144 +1,228 @@
-import Link from "next/link";
-import Button from "@/components/Button";
+"use client";
+
+import Image from "next/image";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { ScrollToPlugin } from "gsap/ScrollToPlugin";
+import Eyebrow from "@/components/Eyebrow";
+import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
-import { CTA_BUTTONS } from "@/constants";
-import { BrickWall } from "lucide-react";
+import VideoCarousel from "@/components/VideoCarousel";
+import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
+
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function MoldEvaluation() {
+  const pinnedRef = useRef<HTMLDivElement>(null);
+  const scrollRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!pinnedRef.current || !scrollRef.current) return;
+    const mm = gsap.matchMedia();
+
+    mm.add("(min-width: 768px)", () => {
+      ScrollTrigger.create({
+        trigger: scrollRef.current,
+        start: "top top+=80",
+        endTrigger: scrollRef.current,
+        end: "bottom 30%",
+        pin: pinnedRef.current,
+        pinSpacing: false,
+        markers: false, // debugging
+      });
+    });
+
+    return () => {
+      mm.revert();
+    };
+  }, []);
   return (
     <main>
-      <section className="bg-white px-6 py-12 md:py-20">
-        <div className="mx-auto max-w-7xl">
-          <div className="mb-8 flex items-center gap-4">
-            <BrickWall className="text-brand-dark-blue h-12 w-12" />
-            <h1 className="text-4xl font-semibold md:text-5xl">
-              Mold Evaluation & Remediation
-            </h1>
+      <section
+        id="hero"
+        className="relative flex h-[50dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[50dvh]"
+      >
+        <div className="absolute top-0 left-0 -z-1 h-full w-full">
+          <video
+            className="h-full w-full object-cover"
+            preload="metadata"
+            playsInline
+            autoPlay
+            loop
+            muted
+          >
+            <source src={HERO_VIDEO.src} type="video/mp4" />
+            {HERO_VIDEO.fallbackText}
+          </video>
+          <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
+        </div>
+
+        <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
+          <h1 className="text-4xl font-semibold text-balance text-white lg:w-2/3">
+            Expert Mold Evaluation & Remediation
+          </h1>
+          <p className="text-balance text-white lg:w-2/3">
+            Protect your property and health with our certified mold inspection
+            and remediation services. We detect, evaluate, and safely eliminate
+            mold issues.
+          </p>
+        </div>
+      </section>
+      <section id="services" className="bg-white px-6 py-12 md:py-20">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-12 md:gap-20">
+          <div
+            ref={pinnedRef}
+            className="flex flex-col items-start md:col-span-4"
+          >
+            <Eyebrow>Our Process</Eyebrow>
+            <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
+              Comprehensive Mold Evaluation Services
+            </h2>
           </div>
-
-          <div className="grid grid-cols-12 gap-8">
-            <div className="col-span-12 lg:col-span-8">
-              <section className="mb-8">
-                <h2 className="mb-4 text-2xl font-semibold">
-                  Expert Mold Inspection and Evaluation Services
-                </h2>
-                <p className="mb-4 text-lg leading-relaxed text-gray-700">
-                  Mold can pose serious health risks and cause significant
-                  damage to your property. Our certified mold inspectors use
-                  advanced techniques and equipment to detect, evaluate, and
-                  remediate mold issues in your home or business.
-                </p>
-                <p className="mb-4 text-lg leading-relaxed text-gray-700">
-                  We provide comprehensive mold evaluation services including
-                  air quality testing, surface sampling, moisture detection, and
-                  detailed remediation plans. Our goal is to ensure your
-                  property is safe and mold-free.
-                </p>
-              </section>
-
-              <section className="mb-8">
-                <h3 className="mb-4 text-xl font-semibold">Our Process</h3>
-                <ol className="space-y-4">
-                  <li className="flex gap-4">
-                    <span className="text-brand-dark-blue flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold">
-                      1
-                    </span>
-                    <div>
-                      <h4 className="font-semibold">Initial Inspection</h4>
-                      <p className="text-gray-700">
-                        Thorough visual inspection and moisture mapping of
-                        affected areas
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="text-brand-dark-blue flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold">
-                      2
-                    </span>
-                    <div>
-                      <h4 className="font-semibold">Testing & Analysis</h4>
-                      <p className="text-gray-700">
-                        Air quality and surface sampling sent to certified
-                        laboratories
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex gap-4">
-                    <span className="text-brand-dark-blue flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full bg-gray-100 font-semibold">
-                      3
-                    </span>
-                    <div>
-                      <h4 className="font-semibold">
-                        Remediation & Prevention
-                      </h4>
-                      <p className="text-gray-700">
-                        Safe removal and prevention strategies to keep mold from
-                        returning
-                      </p>
-                    </div>
-                  </li>
-                </ol>
-              </section>
-
-              <section className="mb-8">
-                <h3 className="mb-4 text-xl font-semibold">
-                  Signs You May Need Mold Evaluation
-                </h3>
-                <ul className="space-y-2">
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Visible mold growth or discoloration</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Musty or earthy odors</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Recent water damage or leaks</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>Allergic reactions or respiratory issues</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-brand-dark-blue mt-1">✓</span>
-                    <span>High humidity levels in your property</span>
-                  </li>
-                </ul>
-              </section>
-            </div>
-
-            <div className="col-span-12 lg:col-span-4">
-              <div className="bg-brand-dark-blue sticky top-24 rounded-lg p-6 text-white">
-                <h3 className="mb-4 text-xl font-semibold">
-                  Schedule an Evaluation
-                </h3>
-                <p className="mb-6">
-                  Get a professional mold evaluation from our certified
-                  inspectors.
-                </p>
-                <div className="space-y-4">
-                  <Link
-                    href={CTA_BUTTONS.freeAssessment.href}
-                    className="block"
-                  >
-                    <Button className="w-full cursor-pointer">
-                      {CTA_BUTTONS.freeAssessment.label}
-                    </Button>
-                  </Link>
-                  <a href="tel:+123456789" className="block">
-                    <Button className="w-full cursor-pointer">
-                      {CTA_BUTTONS.emergency.label}
-                    </Button>
-                  </a>
+          <div
+            ref={scrollRef}
+            className="relative flex flex-col gap-10 md:col-span-8"
+          >
+            {/* Línea vertical con gradient que se desvanece al final */}
+            <div
+              className="absolute top-6 bottom-0 left-4.5 w-0.5"
+              style={{
+                background:
+                  "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
+              }}
+            />
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    1
+                  </span>
                 </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Initial inspection"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Thorough visual inspection and moisture mapping of affected
+                  areas to identify all sources of mold growth and water
+                  intrusion.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    2
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Testing and analysis"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Professional air quality and surface sampling sent to
+                  certified laboratories for detailed analysis of mold types and
+                  spore counts.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    3
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Containment setup"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Establishing containment barriers and negative air pressure to
+                  prevent mold spores from spreading during remediation process.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    4
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Safe removal"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Safe and thorough removal of mold-contaminated materials using
+                  industry-approved techniques and protective equipment.
+                </p>
+              </div>
+            </div>
+            <div className="flex gap-10">
+              <div className="mb-6 flex items-start justify-center">
+                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                    5
+                  </span>
+                </div>
+              </div>
+              <div>
+                <div className="relative aspect-3/1 w-full">
+                  <Image
+                    src="/bg-free-assessment.jpg"
+                    alt="Prevention strategies"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <p className="mt-4 leading-tight font-medium">
+                  Implementation of prevention strategies including moisture
+                  control, improved ventilation, and protective treatments to
+                  keep mold from returning.
+                </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
+      <section className="bg-white px-6 py-12 md:py-20">
+        <div className="mx-auto max-w-7xl">
+          <Eyebrow>{VIDEO_CAROUSEL_SECTION.eyebrow}</Eyebrow>
+          <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
+            {VIDEO_CAROUSEL_SECTION.title}
+          </h2>
+          <VideoCarousel videos={VIDEO_CAROUSEL_SECTION.videos} />
+        </div>
+      </section>
+      <MapSection />
       <section id="cta" className="relative">
         <CallToAction />
       </section>

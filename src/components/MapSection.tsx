@@ -17,72 +17,83 @@ const ADDRESS = "3625 NW 82nd Ave Suite 111, Doral, FL 33166";
 export default function MapSection() {
   const mapContainer = useRef<HTMLDivElement>(null);
   const map = useRef<mapboxgl.Map | null>(null);
+  const initialized = useRef(false);
 
   useEffect(() => {
-    if (map.current || !mapContainer.current) return;
+    // Prevent double initialization in React Strict Mode
+    if (initialized.current || !mapContainer.current) return;
 
-    map.current = new mapboxgl.Map({
-      container: mapContainer.current,
-      style: "mapbox://styles/mapbox/streets-v12",
-      center: [COORDINATES.lng, COORDINATES.lat + 0.001],
-      zoom: 15,
-      scrollZoom: false,
-      interactive: true,
-    });
+    // Verify API key is available
+    if (!mapboxgl.accessToken) {
+      console.error("Mapbox API key is not configured");
+      return;
+    }
 
-    // Prevent map from taking focus and causing scroll jumps
-    // This ensures the map doesn't interfere with page navigation
-    const preventFocus = () => {
-      const canvas = mapContainer.current?.querySelector("canvas");
-      if (canvas) {
-        canvas.setAttribute("tabindex", "-1");
-        canvas.style.outline = "none";
-      }
+    initialized.current = true;
 
-      // Prevent all focusable elements within the map
-      const focusableElements = mapContainer.current?.querySelectorAll(
-        'a, button, input, [tabindex]:not([tabindex="-1"])'
-      );
-      focusableElements?.forEach((el) => {
-        el.setAttribute("tabindex", "-1");
+    try {
+      map.current = new mapboxgl.Map({
+        container: mapContainer.current,
+        style: "mapbox://styles/mapbox/streets-v12",
+        center: [COORDINATES.lng, COORDINATES.lat + 0.001],
+        zoom: 15,
+        scrollZoom: false,
+        interactive: true,
       });
-    };
 
-    preventFocus();
+      // Prevent map from taking focus and causing scroll jumps
+      // This ensures the map doesn't interfere with page navigation
+      const preventFocus = () => {
+        const canvas = mapContainer.current?.querySelector("canvas");
+        if (canvas) {
+          canvas.setAttribute("tabindex", "-1");
+          canvas.style.outline = "none";
+        }
 
-    // Run again after map loads to catch dynamically added elements
-    map.current.on("load", preventFocus);
-
-    map.current.on("load", () => {
-      // Ocultar todos los POIs (puntos de interés)
-      const layers = map.current?.getStyle()?.layers;
-      if (layers) {
-        layers.forEach((layer) => {
-          if (
-            layer.id.includes("poi") ||
-            layer.id.includes("label-poi") ||
-            layer.id.includes("poi-label")
-          ) {
-            map.current?.setLayoutProperty(layer.id, "visibility", "none");
-          }
+        // Prevent all focusable elements within the map
+        const focusableElements = mapContainer.current?.querySelectorAll(
+          'a, button, input, [tabindex]:not([tabindex="-1"])'
+        );
+        focusableElements?.forEach((el) => {
+          el.setAttribute("tabindex", "-1");
         });
-      }
-    });
+      };
 
-    map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+      preventFocus();
 
-    const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
-    const mapUrl = isMobile
-      ? `geo:${COORDINATES.lat},${COORDINATES.lng}?q=${encodeURIComponent(ADDRESS)}`
-      : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
+      // Run again after map loads to catch dynamically added elements
+      map.current.on("load", preventFocus);
 
-    const popup = new mapboxgl.Popup({
-      offset: [0, -40],
-      closeButton: false,
-      closeOnClick: false,
-      className: "custom-popup",
-      focusAfterOpen: false,
-    }).setHTML(`
+      map.current.on("load", () => {
+        // Ocultar todos los POIs (puntos de interés)
+        const layers = map.current?.getStyle()?.layers;
+        if (layers) {
+          layers.forEach((layer) => {
+            if (
+              layer.id.includes("poi") ||
+              layer.id.includes("label-poi") ||
+              layer.id.includes("poi-label")
+            ) {
+              map.current?.setLayoutProperty(layer.id, "visibility", "none");
+            }
+          });
+        }
+      });
+
+      map.current.addControl(new mapboxgl.NavigationControl(), "top-right");
+
+      const isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+      const mapUrl = isMobile
+        ? `geo:${COORDINATES.lat},${COORDINATES.lng}?q=${encodeURIComponent(ADDRESS)}`
+        : `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ADDRESS)}`;
+
+      const popup = new mapboxgl.Popup({
+        offset: [0, -40],
+        closeButton: false,
+        closeOnClick: false,
+        className: "custom-popup",
+        focusAfterOpen: false,
+      }).setHTML(`
         <a
           href="${mapUrl}"
           ${!isMobile ? 'target="_blank" rel="noopener noreferrer"' : ""}
@@ -96,14 +107,22 @@ export default function MapSection() {
         </a>
       `);
 
-    new mapboxgl.Marker({ color: "#E63946" })
-      .setLngLat([COORDINATES.lng, COORDINATES.lat])
-      .addTo(map.current);
+      new mapboxgl.Marker({ color: "#E63946" })
+        .setLngLat([COORDINATES.lng, COORDINATES.lat])
+        .addTo(map.current);
 
-    popup.setLngLat([COORDINATES.lng, COORDINATES.lat]).addTo(map.current);
+      popup.setLngLat([COORDINATES.lng, COORDINATES.lat]).addTo(map.current);
+    } catch (error) {
+      console.error("Error initializing map:", error);
+      initialized.current = false;
+    }
 
     return () => {
-      map.current?.remove();
+      if (map.current) {
+        map.current.remove();
+        map.current = null;
+      }
+      initialized.current = false;
     };
   }, []);
 
