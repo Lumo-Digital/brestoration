@@ -30,7 +30,7 @@ export default function Header() {
 
   const handleContactClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
-    smoothScrollTo("#contact", { offset: -80, duration: 1.2 });
+    smoothScrollTo("#contact", { offset: -80 });
   };
 
   return (
