@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,12 +9,20 @@ import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
 import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
+import { SERVICES } from "@/constants/services";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function StormDamage() {
   const pinnedRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+
+  const service = SERVICES.find((s) => s.href === "/storm-damage");
+  const timeline1 = service?.timelines?.[0];
+  const steps = timeline1?.steps || [];
+  const heroTitle = service?.title || "Storm Damage Restoration";
+  const heroDescription =
+    service?.description || "Storm and weather damage repair";
 
   useEffect(() => {
     if (!pinnedRef.current || !scrollRef.current) return;
@@ -60,13 +67,9 @@ export default function StormDamage() {
 
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
           <h1 className="text-4xl font-semibold text-balance text-white lg:w-2/3">
-            Storm and Weather Damage Restoration
+            {heroTitle}
           </h1>
-          <p className="text-balance text-white lg:w-2/3">
-            Emergency response for storm damage. From roof repairs to complete
-            restoration, we secure and restore your property after severe
-            weather events.
-          </p>
+          <p className="text-balance text-white lg:w-2/3">{heroDescription}</p>
         </div>
       </section>
       <section id="services" className="bg-white px-6 py-12 md:py-20">
@@ -75,10 +78,13 @@ export default function StormDamage() {
             ref={pinnedRef}
             className="flex flex-col items-start md:col-span-4"
           >
-            <Eyebrow>Emergency Response</Eyebrow>
+            <Eyebrow>{timeline1?.eyebrow || "Emergency Response"}</Eyebrow>
             <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
-              Complete Storm Damage Restoration Services
+              {timeline1?.title || "Complete Storm Damage Restoration Services"}
             </h2>
+            {timeline1?.description && (
+              <p className="text-balance">{timeline1.description}</p>
+            )}
           </div>
           <div
             ref={scrollRef}
@@ -92,125 +98,23 @@ export default function StormDamage() {
                   "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
               }}
             />
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    1
-                  </span>
+            {steps.map((step, index) => (
+              <div key={index} className="flex gap-10">
+                <div className="mb-6 flex items-start justify-center">
+                  <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                    <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                      {index + 1}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="mb-2 text-xl font-semibold">{step.title}</h3>
+                  <p className="leading-tight font-medium">
+                    {step.description}
+                  </p>
                 </div>
               </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Emergency protection"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Immediate response to secure your property with emergency
-                  tarping, board-up services, and temporary protection against
-                  further weather damage.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    2
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Damage assessment"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Comprehensive inspection and detailed documentation of all
-                  storm damage for insurance claims, including photos and
-                  written reports.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    3
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Water removal"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Professional water extraction and drying services to address
-                  any flooding or water intrusion caused by the storm event.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    4
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Structural repairs"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Expert structural repairs including roof reconstruction,
-                  siding replacement, window installation, and framework
-                  restoration.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    5
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Complete restoration"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Full restoration of all storm-damaged areas, returning your
-                  property to pre-loss condition with quality craftsmanship and
-                  attention to detail.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>

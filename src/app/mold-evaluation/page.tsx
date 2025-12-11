@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,12 +9,22 @@ import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
 import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
+import { SERVICES } from "@/constants/services";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function MoldEvaluation() {
   const pinnedRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const pinnedRef2 = useRef<HTMLDivElement>(null);
+  const scrollRef2 = useRef<HTMLDivElement>(null);
+
+  const service = SERVICES.find((s) => s.href === "/mold-evaluation");
+  const timeline1 = service?.timelines?.[0];
+  const timeline2 = service?.timelines?.[1];
+  const heroTitle = service?.title || "Mold Evaluation & Remediation";
+  const heroDescription =
+    service?.description || "Expert mold inspection and evaluation";
 
   useEffect(() => {
     if (!pinnedRef.current || !scrollRef.current) return;
@@ -29,8 +38,20 @@ export default function MoldEvaluation() {
         end: "bottom 30%",
         pin: pinnedRef.current,
         pinSpacing: false,
-        markers: false, // debugging
+        markers: false,
       });
+
+      if (pinnedRef2.current && scrollRef2.current) {
+        ScrollTrigger.create({
+          trigger: scrollRef2.current,
+          start: "top top+=80",
+          endTrigger: scrollRef2.current,
+          end: "bottom 30%",
+          pin: pinnedRef2.current,
+          pinSpacing: false,
+          markers: false,
+        });
+      }
     });
 
     return () => {
@@ -60,13 +81,9 @@ export default function MoldEvaluation() {
 
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
           <h1 className="text-4xl font-semibold text-balance text-white lg:w-2/3">
-            Expert Mold Evaluation & Remediation
+            {heroTitle}
           </h1>
-          <p className="text-balance text-white lg:w-2/3">
-            Protect your property and health with our certified mold inspection
-            and remediation services. We detect, evaluate, and safely eliminate
-            mold issues.
-          </p>
+          <p className="text-balance text-white lg:w-2/3">{heroDescription}</p>
         </div>
       </section>
       <section id="services" className="bg-white px-6 py-12 md:py-20">
@@ -75,10 +92,13 @@ export default function MoldEvaluation() {
             ref={pinnedRef}
             className="flex flex-col items-start md:col-span-4"
           >
-            <Eyebrow>Our Process</Eyebrow>
+            <Eyebrow>{timeline1?.eyebrow || "Our Process"}</Eyebrow>
             <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
-              Comprehensive Mold Evaluation Services
+              {timeline1?.title || "Comprehensive Mold Evaluation Services"}
             </h2>
+            {timeline1?.description && (
+              <p className="text-balance">{timeline1.description}</p>
+            )}
           </div>
           <div
             ref={scrollRef}
@@ -92,127 +112,74 @@ export default function MoldEvaluation() {
                   "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
               }}
             />
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    1
-                  </span>
+            {timeline1?.steps.map((step, index) => (
+              <div key={index} className="flex gap-10">
+                <div className="mb-6 flex items-start justify-center">
+                  <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                    <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                      {index + 1}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="mb-2 text-xl font-semibold">{step.title}</h3>
+                  <p className="leading-tight font-medium">
+                    {step.description}
+                  </p>
                 </div>
               </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Initial inspection"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Thorough visual inspection and moisture mapping of affected
-                  areas to identify all sources of mold growth and water
-                  intrusion.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    2
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Testing and analysis"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Professional air quality and surface sampling sent to
-                  certified laboratories for detailed analysis of mold types and
-                  spore counts.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    3
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Containment setup"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Establishing containment barriers and negative air pressure to
-                  prevent mold spores from spreading during remediation process.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    4
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Safe removal"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Safe and thorough removal of mold-contaminated materials using
-                  industry-approved techniques and protective equipment.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    5
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Prevention strategies"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Implementation of prevention strategies including moisture
-                  control, improved ventilation, and protective treatments to
-                  keep mold from returning.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
+      {timeline2 && (
+        <section className="bg-white px-6 py-12 md:py-20">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-12 md:gap-20">
+            <div
+              ref={pinnedRef2}
+              className="flex flex-col items-start md:col-span-4"
+            >
+              <Eyebrow>{timeline2.eyebrow || "Advanced Treatment"}</Eyebrow>
+              <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
+                {timeline2.title}
+              </h2>
+              {timeline2.description && (
+                <p className="text-balance">{timeline2.description}</p>
+              )}
+            </div>
+            <div
+              ref={scrollRef2}
+              className="relative flex flex-col gap-10 md:col-span-8"
+            >
+              {/* Línea vertical con gradient que se desvanece al final */}
+              <div
+                className="absolute top-6 bottom-0 left-4.5 w-0.5"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
+                }}
+              />
+              {timeline2.steps.map((step, index) => (
+                <div key={index} className="flex gap-10">
+                  <div className="mb-6 flex items-start justify-center">
+                    <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                      <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                        {index + 1}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-xl font-semibold">{step.title}</h3>
+                    <p className="leading-tight font-medium">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       <section className="bg-white px-6 py-12 md:py-20">
         <div className="mx-auto max-w-7xl">
           <Eyebrow>{VIDEO_CAROUSEL_SECTION.eyebrow}</Eyebrow>

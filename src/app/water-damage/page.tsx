@@ -1,6 +1,5 @@
 "use client";
 
-import Image from "next/image";
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,12 +9,22 @@ import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
 import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
+import { SERVICES } from "@/constants/services";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 
 export default function WaterDamage() {
   const pinnedRef = useRef<HTMLDivElement>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
+  const pinnedRef2 = useRef<HTMLDivElement>(null);
+  const scrollRef2 = useRef<HTMLDivElement>(null);
+
+  const service = SERVICES.find((s) => s.href === "/water-damage");
+  const timeline1 = service?.timelines?.[0];
+  const timeline2 = service?.timelines?.[1];
+  const heroTitle = service?.title || "Water Damage Restoration";
+  const heroDescription =
+    service?.description || "Complete water damage restoration";
 
   useEffect(() => {
     if (!pinnedRef.current || !scrollRef.current) return;
@@ -29,8 +38,20 @@ export default function WaterDamage() {
         end: "bottom 30%",
         pin: pinnedRef.current,
         pinSpacing: false,
-        markers: false, // debugging
+        markers: false,
       });
+
+      if (pinnedRef2.current && scrollRef2.current) {
+        ScrollTrigger.create({
+          trigger: scrollRef2.current,
+          start: "top top+=80",
+          endTrigger: scrollRef2.current,
+          end: "bottom 30%",
+          pin: pinnedRef2.current,
+          pinSpacing: false,
+          markers: false,
+        });
+      }
     });
 
     return () => {
@@ -60,13 +81,9 @@ export default function WaterDamage() {
 
         <div className="mx-auto flex w-full max-w-7xl flex-col gap-4">
           <h1 className="text-4xl font-semibold text-balance text-white lg:w-2/3">
-            Fast Water Damage Restoration Services
+            {heroTitle}
           </h1>
-          <p className="text-balance text-white lg:w-2/3">
-            24/7 emergency water removal and restoration. We respond quickly to
-            minimize damage and restore your property from floods, leaks, and
-            water emergencies.
-          </p>
+          <p className="text-balance text-white lg:w-2/3">{heroDescription}</p>
         </div>
       </section>
       <section id="services" className="bg-white px-6 py-12 md:py-20">
@@ -75,10 +92,13 @@ export default function WaterDamage() {
             ref={pinnedRef}
             className="flex flex-col items-start md:col-span-4"
           >
-            <Eyebrow>24/7 Emergency Service</Eyebrow>
+            <Eyebrow>{timeline1?.eyebrow || "24/7 Emergency Service"}</Eyebrow>
             <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
-              Professional Water Damage Solutions
+              {timeline1?.title || "Professional Water Damage Solutions"}
             </h2>
+            {timeline1?.description && (
+              <p className="text-balance">{timeline1.description}</p>
+            )}
           </div>
           <div
             ref={scrollRef}
@@ -92,126 +112,74 @@ export default function WaterDamage() {
                   "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
               }}
             />
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    1
-                  </span>
+            {timeline1?.steps.map((step, index) => (
+              <div key={index} className="flex gap-10">
+                <div className="mb-6 flex items-start justify-center">
+                  <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                    <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                      {index + 1}
+                    </span>
+                  </div>
+                </div>
+                <div>
+                  <h3 className="mb-2 text-xl font-semibold">{step.title}</h3>
+                  <p className="leading-tight font-medium">
+                    {step.description}
+                  </p>
                 </div>
               </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Emergency response"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Rapid emergency response to stop the water source and assess
-                  the full extent of damage throughout your property.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    2
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Water extraction"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Complete water removal using state-of-the-art extraction
-                  equipment to eliminate standing water and saturated materials.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    3
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Strategic drying"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Strategic drying using industrial dehumidifiers and air movers
-                  to thoroughly dry all affected structures and prevent mold
-                  growth.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    4
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Cleaning and sanitization"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Thorough cleaning and sanitization of all affected areas using
-                  antimicrobial treatments to ensure a safe, healthy
-                  environment.
-                </p>
-              </div>
-            </div>
-            <div className="flex gap-10">
-              <div className="mb-6 flex items-start justify-center">
-                <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
-                  <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
-                    5
-                  </span>
-                </div>
-              </div>
-              <div>
-                <div className="relative aspect-3/1 w-full">
-                  <Image
-                    src="/bg-free-assessment.jpg"
-                    alt="Full restoration"
-                    fill
-                    className="object-cover"
-                  />
-                </div>
-                <p className="mt-4 leading-tight font-medium">
-                  Complete restoration and rebuilding of water-damaged areas,
-                  returning your property to pre-loss condition or better.
-                </p>
-              </div>
-            </div>
+            ))}
           </div>
         </div>
       </section>
+      {timeline2 && (
+        <section className="bg-white px-6 py-12 md:py-20">
+          <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-12 md:gap-20">
+            <div
+              ref={pinnedRef2}
+              className="flex flex-col items-start md:col-span-4"
+            >
+              <Eyebrow>{timeline2.eyebrow || "Emergency Guide"}</Eyebrow>
+              <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
+                {timeline2.title}
+              </h2>
+              {timeline2.description && (
+                <p className="text-balance">{timeline2.description}</p>
+              )}
+            </div>
+            <div
+              ref={scrollRef2}
+              className="relative flex flex-col gap-10 md:col-span-8"
+            >
+              {/* Línea vertical con gradient que se desvanece al final */}
+              <div
+                className="absolute top-6 bottom-0 left-4.5 w-0.5"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, #D9D9D9 0%, #D9D9D9 85%, transparent 100%)",
+                }}
+              />
+              {timeline2.steps.map((step, index) => (
+                <div key={index} className="flex gap-10">
+                  <div className="mb-6 flex items-start justify-center">
+                    <div className="bg-brand-dark-blue mx-auto inline-flex aspect-square -rotate-6 justify-center px-1">
+                      <span className="bg-brand-light-blue relative z-10 flex aspect-square translate-1 rotate-5 items-center justify-center px-2 py-1 text-xl font-semibold text-white">
+                        {index + 1}
+                      </span>
+                    </div>
+                  </div>
+                  <div>
+                    <h3 className="mb-2 text-xl font-semibold">{step.title}</h3>
+                    <p className="leading-tight font-medium">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
       <section className="bg-white px-6 py-12 md:py-20">
         <div className="mx-auto max-w-7xl">
           <Eyebrow>{VIDEO_CAROUSEL_SECTION.eyebrow}</Eyebrow>
