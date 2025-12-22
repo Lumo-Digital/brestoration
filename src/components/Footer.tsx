@@ -6,12 +6,14 @@ export default function Footer() {
     <footer className="bg-brand-dark-blue relative bottom-px pt-16">
       <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-8 px-6 pb-6 lg:gap-0">
         <div className="col-span-12 flex items-start justify-between md:col-span-3 lg:col-span-3">
-          <Image
-            height={40}
-            width={143}
-            src="logos/logo-white.svg"
-            alt="Blue Restoration Logo"
-          />
+          <Link href="/">
+            <Image
+              height={40}
+              width={143}
+              src="/logos/logo-white.svg"
+              alt="Blue Restoration Logo"
+            />
+          </Link>
         </div>
 
         <div className="col-span-6 text-sm text-white md:col-span-3 lg:col-span-3">

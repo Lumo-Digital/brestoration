@@ -5,6 +5,7 @@ import { useEffect, useRef, useState } from "react";
 interface OptimizedVideoProps {
   src: string;
   poster?: string;
+  alt?: string;
   className?: string;
   autoPlay?: boolean;
   loop?: boolean;
@@ -17,6 +18,7 @@ interface OptimizedVideoProps {
 export default function OptimizedVideo({
   src,
   poster,
+  alt = "Background video",
   className = "",
   autoPlay = true,
   loop = true,
@@ -28,6 +30,7 @@ export default function OptimizedVideo({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isInView, setIsInView] = useState(loading === "eager");
   const [hasLoaded, setHasLoaded] = useState(false);
+  const [isVideoReady, setIsVideoReady] = useState(false);
 
   useEffect(() => {
     if (loading === "eager") {
@@ -59,17 +62,23 @@ export default function OptimizedVideo({
     };
   }, [loading, hasLoaded]);
 
+  const handleLoadedData = () => {
+    setIsVideoReady(true);
+  };
+
   return (
     <video
       ref={videoRef}
-      className={className}
+      className={`${className} transition-opacity duration-700 ${isVideoReady ? "opacity-100" : "opacity-0"}`}
       autoPlay={autoPlay && isInView}
       loop={loop}
       muted={muted}
       playsInline={playsInline}
       preload={isInView ? preload : "none"}
       poster={poster}
-      aria-label="Background video"
+      onLoadedData={handleLoadedData}
+      aria-label={alt}
+      title={alt}
     >
       {isInView && <source src={src} type="video/mp4" />}
       Your browser does not support the video tag.

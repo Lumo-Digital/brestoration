@@ -23,11 +23,8 @@
   command = "pnpm build"
   publish = ".next"
 
-# Redirects
-[[redirects]]
-  from = "/*"
-  to = "/index.html"
-  status = 200
+# Next.js handles routing automatically with @netlify/plugin-nextjs
+# No manual redirects needed
 
 # Headers for security and performance
 [[headers]]

@@ -96,7 +96,7 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
               >
                 <Image
                   src={video.thumb}
-                  alt="Video thumbnail"
+                  alt={`Customer testimonial video thumbnail - ${video.description}`}
                   fill
                   className="object-cover"
                 />

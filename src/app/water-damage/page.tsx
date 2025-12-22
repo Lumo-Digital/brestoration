@@ -8,11 +8,8 @@ import Eyebrow from "@/components/Eyebrow";
 import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
-import {
-  HERO_VIDEOS,
-  VIDEO_CAROUSEL_SECTION,
-  VIDEO_FALLBACK_TEXT,
-} from "@/constants";
+import OptimizedVideo from "@/components/OptimizedVideo";
+import { HERO_VIDEOS, VIDEO_CAROUSEL_SECTION } from "@/constants";
 import { SERVICES } from "@/constants/services";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -69,17 +66,14 @@ export default function WaterDamage() {
         className="relative flex h-[40dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[40dvh]"
       >
         <div className="absolute top-0 left-0 -z-1 h-full w-full">
-          <video
+          <OptimizedVideo
+            src={HERO_VIDEOS.waterDamage.src}
+            poster={HERO_VIDEOS.waterDamage.poster}
+            alt={HERO_VIDEOS.waterDamage.alt}
             className="h-full w-full object-cover"
-            preload="metadata"
-            playsInline
-            autoPlay
-            loop
-            muted
-          >
-            <source src={HERO_VIDEOS.waterDamage.src} type="video/mp4" />
-            {VIDEO_FALLBACK_TEXT}
-          </video>
+            loading="eager"
+            preload="auto"
+          />
           <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
         </div>
 

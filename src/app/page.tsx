@@ -6,13 +6,13 @@ import VideoCard from "@/components/VideoCard";
 import VideoCarousel from "@/components/VideoCarousel";
 import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
+import OptimizedVideo from "@/components/OptimizedVideo";
 import {
   SERVICES,
   WHY_CHOOSE_US_SECTION,
   VIDEO_CAROUSEL_SECTION,
   CTA_BUTTONS,
   HERO_VIDEOS,
-  VIDEO_FALLBACK_TEXT,
 } from "@/constants";
 
 export const metadata: Metadata = {
@@ -40,21 +40,17 @@ export default function Home() {
     <main>
       <section
         id="hero"
-        className="relative flex h-[70dvh] flex-col justify-end gap-10 px-6 py-12"
+        className="relative flex h-[80dvh] flex-col justify-end gap-10 px-6 py-12"
       >
         <div className="absolute top-0 left-0 -z-1 h-full w-full">
-          <video
-            className="h-full w-full object-cover"
-            preload="metadata"
-            playsInline
-            autoPlay
-            loop
-            muted
+          <OptimizedVideo
+            src={HERO_VIDEOS.home.src}
             poster={HERO_VIDEOS.home.poster}
-          >
-            <source src={HERO_VIDEOS.home.src} type="video/mp4" />
-            {VIDEO_FALLBACK_TEXT}
-          </video>
+            alt={HERO_VIDEOS.home.alt}
+            className="h-full w-full object-cover"
+            loading="eager"
+            preload="auto"
+          />
           <div className="from-brand-dark-blue to-brand-dark-blue/40 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
         </div>
 
@@ -123,6 +119,7 @@ export default function Home() {
               <VideoCard
                 key={item.title}
                 src={item.videoSrc}
+                alt={item.videoAlt}
                 className={`col-span-12 max-h-60 ${i < 2 ? "lg:col-span-6 lg:aspect-video lg:max-h-fit" : "lg:col-span-4 lg:aspect-5/4 lg:max-h-fit"}`}
               >
                 <h3 className="text-2xl leading-8 font-semibold">

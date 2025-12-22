@@ -13,7 +13,7 @@ export default function CallToAction() {
         loop
         muted
       >
-        <source src="/videos/home/hero.mp4" type="video/mp4" />
+        <source src="/videos/home/home-hero.mp4" type="video/mp4" />
         {VIDEO_FALLBACK_TEXT}
       </video>
       <div className="from-brand-dark-blue/80 to-brand-dark-blue flex w-full flex-col justify-end gap-6 bg-linear-to-b sm:items-center">

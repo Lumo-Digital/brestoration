@@ -4,6 +4,7 @@ import OptimizedVideo from "./OptimizedVideo";
 interface VideoCardProps {
   src: string;
   poster?: string;
+  alt?: string;
   children: ReactNode;
   className?: string;
 }
@@ -11,6 +12,7 @@ interface VideoCardProps {
 export default function VideoCard({
   src,
   poster,
+  alt,
   children,
   className,
 }: VideoCardProps) {
@@ -19,6 +21,7 @@ export default function VideoCard({
       <OptimizedVideo
         src={src}
         poster={poster}
+        alt={alt}
         className="h-full w-full object-cover"
         autoPlay
         loop
