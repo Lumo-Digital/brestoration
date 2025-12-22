@@ -1,0 +1,622 @@
+<style>
+  * {
+    font-family:
+      "Inter",
+      -apple-system,
+      BlinkMacSystemFont,
+      "Segoe UI",
+      "Roboto",
+      sans-serif;
+  }
+</style>
+<div style="margin: 0; padding: 30px 0; background-color: #f1f5f9">
+  <table
+    style="
+      width: 100%;
+      border-collapse: collapse;
+      background-color: #f1f5f9;
+      padding: 20px;
+    "
+    role="presentation"
+  >
+    <tbody>
+      <tr>
+        <td align="center">
+          <table
+            style="
+              max-width: 600px;
+              width: 100%;
+              background-color: #ffffff;
+              border-radius: 12px;
+              overflow: hidden;
+              box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+            "
+            role="presentation"
+          >
+            <tbody>
+              <!-- Header -->
+              <tr>
+                <td
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      #001533 0%,
+                      #003d5c 100%
+                    );
+                    padding: 48px 40px;
+                    text-align: center;
+                  "
+                >
+                  <!-- Logo -->
+                  <div style="margin-bottom: 24px">
+                    <img
+                      src="https://brestorations.com/logos/logo-white.svg"
+                      alt="Blue Restoration Logo"
+                      style="width: 143px; height: auto; display: inline-block"
+                    />
+                  </div>
+
+                  <h1
+                    style="
+                      color: #ffffff;
+                      font-size: 28px;
+                      font-weight: 700;
+                      margin: 0 0 8px 0;
+                      line-height: 1.3;
+                      letter-spacing: -0.02em;
+                    "
+                  >
+                    Thank you for your request!
+                  </h1>
+                </td>
+              </tr>
+              <!-- Main Content -->
+              <tr>
+                <td style="padding: 48px 40px">
+                  <p
+                    style="
+                      margin: 0 0 16px 0;
+                      line-height: 1.6;
+                      font-size: 16px;
+                      color: #475569;
+                    "
+                  >
+                    We've received your request for a free assessment and we're
+                    ready to help you restore your property to its pre-damage
+                    condition.
+                  </p>
+                  <p
+                    style="
+                      padding-bottom: 30px;
+                      line-height: 1.6;
+                      font-size: 16px;
+                      color: #475569;
+                    "
+                  >
+                    Our team of restoration specialists will review your
+                    information and reach out to you within
+                    <strong style="color: #001533">24-48 hours</strong> to
+                    schedule your assessment and discuss your restoration needs.
+                  </p>
+                  <!-- Your Information Card -->
+                  <table
+                    style="
+                      width: 100%;
+                      background-color: #f8fafc;
+                      border-radius: 12px;
+                      padding: 32px;
+                      margin-bottom: 24px;
+                      border: 1px solid #e2e8f0;
+                    "
+                    role="presentation"
+                  >
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h2
+                            style="
+                              font-size: 20px;
+                              font-weight: 700;
+                              color: #001533;
+                              margin: 0 0 20px 0;
+                              letter-spacing: -0.02em;
+                            "
+                          >
+                            Your Information
+                          </h2>
+                          <table style="width: 100%" role="presentation">
+                            <tbody>
+                              <tr>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 14px;
+                                    color: #475569;
+                                    font-weight: 600;
+                                    width: 120px;
+                                    vertical-align: top;
+                                  "
+                                >
+                                  Name:
+                                </td>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 15px;
+                                    color: #001533;
+                                    font-weight: 500;
+                                  "
+                                >
+                                  {{contact.first_name}} {{contact.last_name}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 14px;
+                                    color: #475569;
+                                    font-weight: 600;
+                                    border-top: 1px solid #e2e8f0;
+                                    vertical-align: top;
+                                  "
+                                >
+                                  Email:
+                                </td>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 15px;
+                                    color: #001533;
+                                    font-weight: 500;
+                                    border-top: 1px solid #e2e8f0;
+                                  "
+                                >
+                                  {{contact.email}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 14px;
+                                    color: #475569;
+                                    font-weight: 600;
+                                    border-top: 1px solid #e2e8f0;
+                                    vertical-align: top;
+                                  "
+                                >
+                                  Phone:
+                                </td>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 15px;
+                                    color: #001533;
+                                    font-weight: 500;
+                                    border-top: 1px solid #e2e8f0;
+                                  "
+                                >
+                                  {{contact.phone}}
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 14px;
+                                    color: #475569;
+                                    font-weight: 600;
+                                    border-top: 1px solid #e2e8f0;
+                                    vertical-align: top;
+                                  "
+                                >
+                                  Zip Code:
+                                </td>
+                                <td
+                                  style="
+                                    padding: 12px 0;
+                                    font-size: 15px;
+                                    color: #001533;
+                                    font-weight: 500;
+                                    border-top: 1px solid #e2e8f0;
+                                  "
+                                >
+                                  {{contact.postal_code}}
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- Services of Interest Card -->
+                  <table
+                    style="
+                      width: 100%;
+                      background: linear-gradient(
+                        135deg,
+                        #e0f2fe 0%,
+                        #f0f9ff 100%
+                      );
+                      border-left: 4px solid #009fe3;
+                      border-radius: 12px;
+                      padding: 24px;
+                      margin-bottom: 24px;
+                    "
+                    role="presentation"
+                  >
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h3
+                            style="
+                              font-size: 18px;
+                              font-weight: 700;
+                              color: #001533;
+                              margin: 0 0 12px 0;
+                              letter-spacing: -0.01em;
+                            "
+                          >
+                            Services of Interest
+                          </h3>
+                          <p
+                            style="
+                              margin: 0;
+                              line-height: 1.5;
+                              font-size: 15px;
+                              color: #003d5c;
+                              font-weight: 500;
+                            "
+                          >
+                            {{contact.services_of_interest}}
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- Your Comments Card -->
+                  <table
+                    style="
+                      width: 100%;
+                      background: linear-gradient(
+                        135deg,
+                        #fef3c7 0%,
+                        #fefce8 100%
+                      );
+                      border-left: 4px solid #f1b50e;
+                      border-radius: 12px;
+                      padding: 24px;
+                      margin-bottom: 24px;
+                    "
+                    role="presentation"
+                  >
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h3
+                            style="
+                              font-size: 18px;
+                              font-weight: 700;
+                              color: #001533;
+                              margin: 0 0 12px 0;
+                              letter-spacing: -0.01em;
+                            "
+                          >
+                            Your Comments
+                          </h3>
+                          <p
+                            style="
+                              margin: 0;
+                              line-height: 1.5;
+                              font-size: 15px;
+                              color: #4d3d00;
+                              text-align: left;
+                            "
+                          >
+                            {{contact.comments}}
+                          </p>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- What Happens Next Card -->
+                  <table
+                    style="
+                      width: 100%;
+                      background: linear-gradient(
+                        135deg,
+                        #dcfce7 0%,
+                        #f0fdf4 100%
+                      );
+                      border-left: 4px solid #16a34a;
+                      border-radius: 12px;
+                      padding: 24px;
+                      margin-bottom: 32px;
+                    "
+                    role="presentation"
+                  >
+                    <tbody>
+                      <tr>
+                        <td>
+                          <h3
+                            style="
+                              font-size: 18px;
+                              font-weight: 700;
+                              color: #001533;
+                              margin: 0 0 12px 0;
+                              letter-spacing: -0.01em;
+                            "
+                          >
+                            What happens next?
+                          </h3>
+                          <p
+                            style="
+                              margin: 0 0 16px 0;
+                              line-height: 1.5;
+                              font-size: 15px;
+                              color: #065f46;
+                            "
+                          >
+                            One of our restoration specialists will contact you
+                            to:
+                          </p>
+                          <table style="width: 100%" role="presentation">
+                            <tbody>
+                              <tr>
+                                <td
+                                  style="
+                                    padding: 8px 0;
+                                    font-size: 15px;
+                                    color: #065f46;
+                                  "
+                                >
+                                  <span
+                                    style="
+                                      color: #16a34a;
+                                      font-weight: 700;
+                                      margin-right: 8px;
+                                    "
+                                    >✓</span
+                                  >
+                                  Confirm your restoration service needs
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  style="
+                                    padding: 8px 0;
+                                    font-size: 15px;
+                                    color: #065f46;
+                                  "
+                                >
+                                  <span
+                                    style="
+                                      color: #16a34a;
+                                      font-weight: 700;
+                                      margin-right: 8px;
+                                    "
+                                    >✓</span
+                                  >
+                                  Schedule a convenient time for your property
+                                  assessment
+                                </td>
+                              </tr>
+                              <tr>
+                                <td
+                                  style="
+                                    padding: 8px 0;
+                                    font-size: 15px;
+                                    color: #065f46;
+                                  "
+                                >
+                                  <span
+                                    style="
+                                      color: #16a34a;
+                                      font-weight: 700;
+                                      margin-right: 8px;
+                                    "
+                                    >✓</span
+                                  >
+                                  Answer any questions about our restoration
+                                  process
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <!-- Divider -->
+                  <div
+                    style="
+                      height: 1px;
+                      background-color: #e2e8f0;
+                      margin: 32px 0;
+                    "
+                  ></div>
+
+                  <!-- Contact Section -->
+                  <p
+                    style="
+                      margin: 0 0 20px 0;
+                      line-height: 1.6;
+                      font-size: 16px;
+                      color: #475569;
+                    "
+                  >
+                    In the meantime, if you have any urgent questions or need
+                    emergency restoration services, please don't hesitate to
+                    reach out to us:
+                  </p>
+
+                  <table
+                    style="
+                      width: 100%;
+                      margin-bottom: 32px;
+                      background-color: #f8fafc;
+                      border-radius: 8px;
+                      padding: 20px;
+                    "
+                    role="presentation"
+                  >
+                    <tbody>
+                      <tr>
+                        <td
+                          style="
+                            padding: 10px 0;
+                            font-size: 15px;
+                            color: #001533;
+                          "
+                        >
+                          <ul style="margin: 0">
+                            <li style="margin-bottom: 10px">
+                              <a
+                                target="_blank"
+                                rel="noopener noreferrer nofollow"
+                                href="mailto:info@brestorations.com"
+                                style="
+                                  color: #009fe3;
+                                  text-decoration: none;
+                                  font-weight: 500;
+                                "
+                                >info@brestorations.com</a
+                              >
+                            </li>
+                            <li style="margin-bottom: 10px">
+                              <a
+                                target="_blank"
+                                rel="noopener noreferrer nofollow"
+                                href="tel:+13054979125"
+                                style="
+                                  color: #009fe3;
+                                  text-decoration: none;
+                                  font-weight: 500;
+                                "
+                                >+1 (305) 497-9125</a
+                              >
+                            </li>
+                          </ul>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+
+                  <p
+                    style="
+                      margin: 0 0 16px 0;
+                      font-size: 15px;
+                      color: #475569;
+                      line-height: 1.5;
+                    "
+                  >
+                    We look forward to serving you and restoring your property
+                    with the professional care and expertise it deserves.
+                  </p>
+
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 15px;
+                      font-weight: 600;
+                      color: #001533;
+                    "
+                  >
+                    Best regards,<br />
+                    <span style="display: inline-block; margin-top: 5px"
+                      >The Blue Restoration Team</span
+                    >
+                  </p>
+                </td>
+              </tr>
+              <!-- Footer -->
+              <tr>
+                <td
+                  style="
+                    background: linear-gradient(
+                      135deg,
+                      #f8fafc 0%,
+                      #f1f5f9 100%
+                    );
+                    padding: 40px;
+                    text-align: center;
+                    border-top: 1px solid #e2e8f0;
+                  "
+                >
+                  <div style="margin-bottom: 20px">
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      href="https://brestorations.com/"
+                      style="
+                        color: #009fe3;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 14px;
+                        margin: 0 12px;
+                      "
+                      >Visit Our Website</a
+                    >
+                    <span style="color: #cbd5e1; margin: 0 4px">|</span>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      href="mailto:info@brestorations.com"
+                      style="
+                        color: #009fe3;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 14px;
+                        margin: 0 12px;
+                      "
+                      >Email Us</a
+                    >
+                    <span style="color: #cbd5e1; margin: 0 4px">|</span>
+                    <a
+                      target="_blank"
+                      rel="noopener noreferrer nofollow"
+                      href="tel:+13054979125"
+                      style="
+                        color: #009fe3;
+                        text-decoration: none;
+                        font-weight: 600;
+                        font-size: 14px;
+                        margin: 0 12px;
+                      "
+                      >Call Us</a
+                    >
+                  </div>
+                  <p
+                    style="
+                      margin: 0 0 8px 0;
+                      font-size: 13px;
+                      color: #64748b;
+                      line-height: 1.5;
+                      text-wrap: balance;
+                    "
+                  >
+                    You're receiving this email because you requested a free
+                    assessment from Blue Restoration.
+                  </p>
+                  <p
+                    style="
+                      margin: 0;
+                      font-size: 12px;
+                      color: #94a3b8;
+                      line-height: 1.5;
+                    "
+                  >
+                    Blue Restoration Services | 3625 NW 82nd Ave Suite 111,
+                    Doral, FL 33166
+                  </p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
