@@ -1,9 +1,12 @@
 "use client";
 
 import useEmblaCarousel from "embla-carousel-react";
-import { ChevronLeft, ChevronRight, Play, X } from "lucide-react";
+import { ChevronLeft, ChevronRight, Play } from "lucide-react";
 import Image from "next/image";
-import { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { useCallback, useLayoutEffect, useState } from "react";
+import Lightbox from "yet-another-react-lightbox";
+import Video from "yet-another-react-lightbox/plugins/video";
+import "yet-another-react-lightbox/styles.css";
 
 interface VideoCarouselProps {
   videos: {
@@ -20,7 +23,8 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
 
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
-  const [playingVideo, setPlayingVideo] = useState<number | null>(null);
+  const [lightboxOpen, setLightboxOpen] = useState(false);
+  const [lightboxIndex, setLightboxIndex] = useState(0);
 
   const scrollPrev = useCallback(() => {
     if (emblaApi) emblaApi.scrollPrev();
@@ -31,11 +35,8 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
   }, [emblaApi]);
 
   const handlePlayVideo = (index: number) => {
-    setPlayingVideo(index);
-  };
-
-  const handleCloseVideo = () => {
-    setPlayingVideo(null);
+    setLightboxIndex(index);
+    setLightboxOpen(true);
   };
 
   useLayoutEffect(() => {
@@ -56,33 +57,42 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
     };
   }, [emblaApi]);
 
-  useEffect(() => {
-    const handleEscape = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && playingVideo !== null) {
-        handleCloseVideo();
-      }
-    };
+  const lightboxSlides = videos.map((video) => ({
+    type: "video" as const,
+    width: 1080,
+    height: 1920,
+    sources: [
+      {
+        src: video.src,
+        type: "video/mp4",
+      },
+    ],
+  }));
 
-    if (playingVideo !== null) {
-      document.addEventListener("keydown", handleEscape);
-      document.body.style.overflow = "hidden";
-    }
-
-    return () => {
-      document.removeEventListener("keydown", handleEscape);
-      document.body.style.overflow = "";
-    };
-  }, [playingVideo]);
+  const isSingleVideo = videos.length === 1;
 
   return (
     <>
       <div className="flex flex-col gap-10">
-        <div className="overflow-visible" ref={emblaRef}>
-          <div className="flex gap-5">
+        <div
+          className={isSingleVideo ? "" : "overflow-visible"}
+          ref={isSingleVideo ? undefined : emblaRef}
+        >
+          <div
+            className={
+              isSingleVideo
+                ? "mx-auto flex w-full max-w-4xl justify-center"
+                : "flex gap-5"
+            }
+          >
             {videos.map((video, index) => (
               <div
                 key={index}
-                className="relative aspect-4/5 min-w-0 flex-[0_0_85%] overflow-hidden sm:aspect-5/3"
+                className={
+                  isSingleVideo
+                    ? "relative aspect-video w-full overflow-hidden"
+                    : "relative aspect-4/5 min-w-0 flex-[0_0_85%] overflow-hidden sm:aspect-5/3"
+                }
               >
                 <Image
                   src={video.thumb}
@@ -107,57 +117,50 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
           </div>
         </div>
 
-        {/* Navigation buttons */}
-        <div className="flex justify-end gap-2">
-          <button
-            onClick={scrollPrev}
-            disabled={!canScrollPrev}
-            className="hover:bg-brand-dark-blue group bg-brand-dark-blue/90 rounded-full p-2 shadow-lg transition-all hover:scale-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
-            aria-label="Previous slide"
-          >
-            <ChevronLeft className="h-6 w-6 text-white transition-colors" />
-          </button>
+        {!isSingleVideo && (
+          <div className="flex justify-end gap-2">
+            <button
+              onClick={scrollPrev}
+              disabled={!canScrollPrev}
+              className="hover:bg-brand-dark-blue group bg-brand-dark-blue/90 rounded-full p-2 shadow-lg transition-all hover:scale-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
+              aria-label="Previous slide"
+            >
+              <ChevronLeft className="h-6 w-6 text-white transition-colors" />
+            </button>
 
-          <button
-            onClick={scrollNext}
-            disabled={!canScrollNext}
-            className="hover:bg-brand-dark-blue group bg-brand-dark-blue/90 rounded-full p-2 shadow-lg transition-all hover:scale-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
-            aria-label="Next slide"
-          >
-            <ChevronRight className="h-6 w-6 text-white transition-colors" />
-          </button>
-        </div>
+            <button
+              onClick={scrollNext}
+              disabled={!canScrollNext}
+              className="hover:bg-brand-dark-blue group bg-brand-dark-blue/90 rounded-full p-2 shadow-lg transition-all hover:scale-110 disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:scale-100"
+              aria-label="Next slide"
+            >
+              <ChevronRight className="h-6 w-6 text-white transition-colors" />
+            </button>
+          </div>
+        )}
       </div>
 
-      {playingVideo !== null && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4"
-          onClick={handleCloseVideo}
-        >
-          <button
-            onClick={handleCloseVideo}
-            className="absolute top-4 right-4 z-10 cursor-pointer p-3 text-white transition-all hover:scale-110"
-            aria-label="Cerrar video"
-          >
-            <X className="h-6 w-6" />
-          </button>
-
-          <div
-            className="relative w-full max-w-5xl"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <video
-              className="w-full shadow-2xl"
-              controls
-              autoPlay
-              onEnded={handleCloseVideo}
-            >
-              <source src={videos[playingVideo].src} type="video/mp4" />
-              Tu navegador no soporta el elemento video.
-            </video>
-          </div>
-        </div>
-      )}
+      <Lightbox
+        open={lightboxOpen}
+        close={() => setLightboxOpen(false)}
+        index={lightboxIndex}
+        slides={lightboxSlides}
+        plugins={[Video]}
+        video={{
+          autoPlay: true,
+          controls: true,
+        }}
+        carousel={{
+          finite: isSingleVideo,
+        }}
+        controller={{
+          closeOnBackdropClick: true,
+        }}
+        render={{
+          buttonPrev: isSingleVideo ? () => null : undefined,
+          buttonNext: isSingleVideo ? () => null : undefined,
+        }}
+      />
     </>
   );
 }

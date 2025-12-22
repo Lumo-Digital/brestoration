@@ -1,29 +1,32 @@
 import { ReactNode } from "react";
+import OptimizedVideo from "./OptimizedVideo";
 
 interface VideoCardProps {
   src: string;
+  poster?: string;
   children: ReactNode;
   className?: string;
 }
 
 export default function VideoCard({
   src,
+  poster,
   children,
   className,
 }: VideoCardProps) {
   return (
     <div className={`relative overflow-hidden ${className}`}>
-      <video
-        className={`h-full w-full object-cover`}
-        preload="metadata"
-        playsInline
+      <OptimizedVideo
+        src={src}
+        poster={poster}
+        className="h-full w-full object-cover"
         autoPlay
         loop
         muted
-      >
-        <source src={src} type="video/mp4" />
-        Tu navegador no soporta el elemento video.
-      </video>
+        playsInline
+        preload="metadata"
+        loading="lazy"
+      />
       <div className="bg-brand-dark-blue/80 absolute top-0 left-0 flex h-full w-full flex-col justify-end gap-6 p-6 text-white">
         {children}
       </div>

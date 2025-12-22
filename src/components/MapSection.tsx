@@ -129,9 +129,9 @@ export default function MapSection() {
   return (
     <section className="w-full bg-white pt-12">
       <div className="mx-auto max-w-7xl px-6 pb-10">
-        <Eyebrow>Lorem ipsum</Eyebrow>
-        <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
-          Lorem ipsum dolor sit amet consectetur adipisicing
+        <Eyebrow>Our Location</Eyebrow>
+        <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-8 font-semibold text-balance md:w-2/3 lg:w-2/4">
+          Visit Us or Schedule a Free Assessment
         </h2>
       </div>
       <div
