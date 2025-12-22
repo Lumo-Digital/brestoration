@@ -40,7 +40,7 @@ export const VIDEO_CAROUSEL_SECTION = {
   title: "Hear From Our Satisfied Customers",
   videos: [
     {
-      src: "/videos/shared/reel_natali.mp4",
+      src: "https://res.cloudinary.com/dmsciazqx/video/upload/v1766444065/reel_natali_jhgfad.mp4",
       thumb: "/images/posters/thumb-reel-natali.jpg",
       description:
         "After seeing her neighbor's roof being repaired, she reached out to Blue Restoration. From the thorough inspection to the step-by-step process, she now has a brand new roof and couldn't be happier with the results.",
