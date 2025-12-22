@@ -1,21 +1,19 @@
 import Link from "next/link";
 import Button from "@/components/Button";
-import { VIDEO_FALLBACK_TEXT } from "@/constants/videos";
+import OptimizedVideo from "@/components/OptimizedVideo";
+import { HERO_VIDEOS } from "@/constants/videos";
 
 export default function CallToAction() {
   return (
     <section id="cta" className="relative">
-      <video
+      <OptimizedVideo
+        src={HERO_VIDEOS.home.src}
+        poster={HERO_VIDEOS.home.poster}
+        alt={HERO_VIDEOS.home.alt}
         className="absolute top-0 left-0 -z-1 h-full w-full object-cover"
-        preload="metadata"
-        playsInline
-        autoPlay
-        loop
-        muted
-      >
-        <source src="/videos/home/home-hero.mp4" type="video/mp4" />
-        {VIDEO_FALLBACK_TEXT}
-      </video>
+        loading="eager"
+        preload="auto"
+      />
       <div className="from-brand-dark-blue/80 to-brand-dark-blue flex w-full flex-col justify-end gap-6 bg-linear-to-b sm:items-center">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center p-6 py-25">
           <h2 className="mb-3 text-center text-4xl font-semibold text-white sm:w-3/4 sm:text-center sm:text-balance">

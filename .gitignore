@@ -44,3 +44,9 @@ next-env.d.ts
 
 # raw video files
 *_raw.mp4
+
+# video backups
+public/videos/.originals/
+
+# lighthouse reports
+lighthouse-report.*

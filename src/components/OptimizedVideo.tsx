@@ -30,10 +30,12 @@ export default function OptimizedVideo({
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isInView, setIsInView] = useState(loading === "eager");
   const [hasLoaded, setHasLoaded] = useState(false);
-  const [isVideoReady, setIsVideoReady] = useState(false);
+  // For eager loading, start ready. For lazy, wait for load event
+  const [isVideoReady, setIsVideoReady] = useState(loading === "eager");
 
   useEffect(() => {
     if (loading === "eager") {
+      // Already initialized in state above
       return;
     }
 
@@ -66,6 +68,12 @@ export default function OptimizedVideo({
     setIsVideoReady(true);
   };
 
+  const handleError = (e: React.SyntheticEvent<HTMLVideoElement, Event>) => {
+    console.error(`Failed to load video: ${src}`, e);
+    // Still show the poster even if video fails
+    setIsVideoReady(true);
+  };
+
   return (
     <video
       ref={videoRef}
@@ -77,6 +85,7 @@ export default function OptimizedVideo({
       preload={isInView ? preload : "none"}
       poster={poster}
       onLoadedData={handleLoadedData}
+      onError={handleError}
       aria-label={alt}
       title={alt}
     >
