@@ -34,7 +34,7 @@ export const SERVICES: Service[] = [
     icon: Flame,
     title: "Professional Fire Damage Restoration Services",
     description:
-      "Fire damage can be one of the most devastating events that can happen to a home or business. It not only damages property, but it can also have long-lasting effects on the health and well-being of those who have been affected. In this article. Below are the steps involved in fire damage restoration to bring your property back to pre-fire condition.",
+      "Fire damage can devastate homes and businesses, affecting both property and health. Below are the professional restoration steps to bring your property back to pre-fire condition.",
     timelines: [
       {
         steps: [
@@ -172,7 +172,7 @@ export const SERVICES: Service[] = [
     icon: Droplets,
     title: "Fast Water Damage Restoration Services",
     description:
-      "Water damage is a common problem that many homeowners face. It can be caused by a variety of factors, such as flooding, leaking pipes, or natural disasters. When water damage occurs, it is important to act quickly to prevent further damage and to begin the restoration process. Below are the steps involved in water damage restoration:",
+      "Water damage from flooding, leaking pipes, or natural disasters requires immediate action. Acting quickly prevents further damage and mold growth. Below are the steps involved in water damage restoration:",
     timelines: [
       {
         title: "Professional Restoration Process",
@@ -253,7 +253,7 @@ export const SERVICES: Service[] = [
     icon: CloudLightning,
     title: "Storm and Weather Damage Restoration",
     description:
-      "Storm damage restoration is a crucial service that helps homeowners and businesses recover from the damage caused by severe weather conditions such as hurricanes, tornadoes, and thunderstorms. These types of natural disasters can cause significant damage to a property's structure, contents, and surrounding landscape, making it important to seek immediate assistance from Blue Restoration Services. We'll take a closer look at the process of storm damage restoration and what you can expect during each step of the process.",
+      "Severe weather conditions like hurricanes, tornadoes, and thunderstorms can cause significant damage to your property's structure and contents. Immediate professional assistance is crucial for proper recovery. Below is the storm damage restoration process:",
     timelines: [
       {
         steps: [

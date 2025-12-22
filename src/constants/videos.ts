@@ -4,32 +4,41 @@ export interface VideoItem {
   description: string;
 }
 
-export const HERO_VIDEO = {
-  src: "/bg-video.mp4",
-  fallbackText: "Tu navegador no soporta el elemento video.",
+export const VIDEO_FALLBACK_TEXT =
+  "Your browser does not support video playback.";
+
+export const HERO_VIDEOS = {
+  home: {
+    src: "/videos/home/hero.mp4",
+    poster: "/images/posters/home-hero.jpg",
+  },
+  waterDamage: {
+    src: "/videos/water-damage/hero.mp4",
+    poster: "/images/posters/water-damage-hero.jpg",
+  },
+  fireDamage: {
+    src: "/videos/fire-damage/hero.mp4",
+    poster: "/images/posters/fire-damage-hero.jpg",
+  },
+  stormDamage: {
+    src: "/videos/storm-damage/hero.mp4",
+    poster: "/images/posters/storm-damage-hero.jpg",
+  },
+  moldEvaluation: {
+    src: "/videos/mold-evaluation/hero.mp4",
+    poster: "/images/posters/mold-evaluation-hero.jpg",
+  },
 } as const;
 
 export const VIDEO_CAROUSEL_SECTION = {
-  eyebrow: "Lorem ipsum",
-  title: "Lorem ipsum dolor sit amet consectetur adipisicing",
+  eyebrow: "Testimonials",
+  title: "Hear From Our Satisfied Customers",
   videos: [
     {
-      src: "/bg-video.mp4",
-      thumb: "/video-thumb1.jpg",
+      src: "/videos/shared/reel-natali.mp4",
+      thumb: "/thumbs/shared/thumb-reel-natali.jpg",
       description:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna",
-    },
-    {
-      src: "/bg-video.mp4",
-      thumb: "/video-thumb1.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna",
-    },
-    {
-      src: "/bg-video.mp4",
-      thumb: "/video-thumb1.jpg",
-      description:
-        "Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna",
+        "After seeing her neighbor's roof being repaired, she reached out to Blue Restoration. From the thorough inspection to the step-by-step process, she now has a brand new roof and couldn't be happier with the results.",
     },
   ] as VideoItem[],
 } as const;
