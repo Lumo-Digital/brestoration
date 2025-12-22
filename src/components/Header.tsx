@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Menu, X, ChevronDown, Mail, Phone, MapPin } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Button from "@/components/Button";
 import { SERVICES, CTA_BUTTONS } from "@/constants";
 import { smoothScrollTo } from "@/utils/smoothScroll";
@@ -11,6 +12,10 @@ import { smoothScrollTo } from "@/utils/smoothScroll";
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isServicesOpen, setIsServicesOpen] = useState(false);
+  const pathname = usePathname();
+
+  const isPolicyPage =
+    pathname === "/cookie-policy" || pathname === "/privacy-policy";
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -35,14 +40,14 @@ export default function Header() {
 
   return (
     <header
-      className={`px-6 py-6 pb-7 transition-colors duration-300 ${isServicesOpen ? "bg-brand-dark-blue" : ""}`}
+      className={`absolute z-1000 w-full px-6 py-6 pb-7 ${isPolicyPage ? "bg-brand-dark-blue" : ""}`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
         <div className="flex items-center">
           <Link href="/">
             <Image
-              src="/logo-white.svg"
+              src="/logos/logo-white.svg"
               height={40}
               width={143}
               alt="Blue Restoration Logo"
@@ -125,7 +130,7 @@ export default function Header() {
           <div className="flex justify-between p-6">
             <Link href="/">
               <Image
-                src="/logo-white.svg"
+                src="/logos/logo-white.svg"
                 height={40}
                 width={143}
                 alt="Blue Restoration Logo"

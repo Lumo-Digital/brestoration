@@ -3,13 +3,13 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="bg-brand-dark-blue pt-16">
+    <footer className="bg-brand-dark-blue relative bottom-px pt-16">
       <div className="mx-auto grid max-w-[1400px] grid-cols-12 gap-8 px-6 pb-6 lg:gap-0">
         <div className="col-span-12 flex items-start justify-between md:col-span-3 lg:col-span-3">
           <Image
             height={40}
             width={143}
-            src="/logo-white.svg"
+            src="logos/logo-white.svg"
             alt="Blue Restoration Logo"
           />
         </div>
@@ -77,12 +77,13 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <Link
-                href={"/"}
+              <a
+                target="_blank"
+                href={"https://api.whatsapp.com/send?phone=13054979125"}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Whatsapp
-              </Link>
+              </a>
             </li>
           </ul>
         </div>
@@ -130,10 +131,10 @@ export default function Footer() {
           </h3>
           <ul className="flex flex-col gap-2 p-0 md:flex-row md:justify-end md:gap-5">
             <li>
-              <Link href={"/"}>Privacy Policy</Link>
+              <Link href={"/privacy-policy"}>Privacy Policy</Link>
             </li>
             <li>
-              <Link href={"/"}>Cookie Policy</Link>
+              <Link href={"/cookie-policy"}>Cookie Policy</Link>
             </li>
           </ul>
         </div>
@@ -144,10 +145,10 @@ export default function Footer() {
           </p>
           <ul className="hidden p-0 text-sm text-white sm:flex sm:gap-6 md:mt-4 lg:mt-16">
             <li>
-              <Link href={"/"}>Privacy Policy</Link>
+              <Link href={"/privacy-policy"}>Privacy Policy</Link>
             </li>
             <li>
-              <Link href={"/"}>Cookie Policy</Link>
+              <Link href={"/cookie-policy"}>Cookie Policy</Link>
             </li>
           </ul>
         </div>
