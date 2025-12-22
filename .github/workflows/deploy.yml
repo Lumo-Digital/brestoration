@@ -2,7 +2,7 @@ name: Deploy to Netlify
 
 on:
   push:
-    branches: [main, dev]
+    branches: [main, staging]
   pull_request:
     branches: [main]
 
@@ -67,10 +67,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
+          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROJECT_ID }}
 
       - name: Deploy to Netlify (Staging)
-        if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
         id: deploy-staging
         run: |
           echo "🔄 Deploying to staging environment..."
@@ -127,7 +127,7 @@ jobs:
 
       # Crear GitHub Deployment para Staging
       - name: Create GitHub Deployment (Staging)
-        if: github.ref == 'refs/heads/dev' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
         uses: actions/github-script@v7
         with:
           script: |
