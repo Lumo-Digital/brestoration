@@ -8,7 +8,11 @@ import Eyebrow from "@/components/Eyebrow";
 import MapSection from "@/components/MapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
-import { HERO_VIDEO, VIDEO_CAROUSEL_SECTION } from "@/constants";
+import {
+  HERO_VIDEOS,
+  VIDEO_CAROUSEL_SECTION,
+  VIDEO_FALLBACK_TEXT,
+} from "@/constants";
 import { SERVICES } from "@/constants/services";
 
 gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
@@ -48,7 +52,7 @@ export default function FireDamage() {
     <main>
       <section
         id="hero"
-        className="relative flex h-[50dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[50dvh]"
+        className="relative flex h-[40dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[40dvh]"
       >
         <div className="absolute top-0 left-0 -z-1 h-full w-full">
           <video
@@ -59,8 +63,8 @@ export default function FireDamage() {
             loop
             muted
           >
-            <source src={HERO_VIDEO.src} type="video/mp4" />
-            {HERO_VIDEO.fallbackText}
+            <source src={HERO_VIDEOS.fireDamage.src} type="video/mp4" />
+            {VIDEO_FALLBACK_TEXT}
           </video>
           <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
         </div>
@@ -79,7 +83,7 @@ export default function FireDamage() {
             className="flex flex-col items-start md:col-span-4"
           >
             <Eyebrow>{timeline1?.eyebrow || "Our Process"}</Eyebrow>
-            <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-7 font-semibold text-balance">
+            <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-8 font-semibold text-balance">
               {timeline1?.title || "Fire Damage Restoration Process"}
             </h2>
             {timeline1?.description && (
@@ -88,7 +92,7 @@ export default function FireDamage() {
           </div>
           <div
             ref={scrollRef}
-            className="relative flex flex-col gap-10 md:col-span-8"
+            className="relative flex flex-col gap-15 md:col-span-8 md:gap-20"
           >
             {/* Línea vertical con gradient que se desvanece al final */}
             <div
@@ -121,7 +125,7 @@ export default function FireDamage() {
       <section className="bg-white px-6 py-12 md:py-20">
         <div className="mx-auto max-w-7xl">
           <Eyebrow>{VIDEO_CAROUSEL_SECTION.eyebrow}</Eyebrow>
-          <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-7 font-semibold text-balance md:w-2/3 lg:w-2/4">
+          <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-8 font-semibold text-balance md:w-2/3 lg:w-2/4">
             {VIDEO_CAROUSEL_SECTION.title}
           </h2>
           <VideoCarousel videos={VIDEO_CAROUSEL_SECTION.videos} />

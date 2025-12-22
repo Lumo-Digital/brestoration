@@ -6,6 +6,7 @@ import * as z from "zod";
 import Button from "@/components/Button";
 import MapSection from "@/components/MapSection";
 import { SERVICES } from "@/constants/services";
+import { HERO_VIDEOS, VIDEO_FALLBACK_TEXT } from "@/constants/videos";
 
 const formSchema = z.object({
   services: z.array(z.string()).min(1, "Please select at least one service"),
@@ -86,7 +87,8 @@ export default function FreeAssessmentPage() {
       phone: data.phone,
       zipCode: data.zipcode,
       comments: data.comments,
-      tags: data.services.length > 0 ? data.services : ["website-lead"],
+      servicesOfInterest: data.services,
+      tags: ["website lead"],
     };
 
     try {
@@ -117,14 +119,31 @@ export default function FreeAssessmentPage() {
 
   return (
     <main className="flex flex-col">
-      <section className="relative flex h-[30dvh] flex-col justify-end bg-[url('/bg-free-assessment.jpg')] bg-cover bg-center">
-        <div className="relative z-500 px-6 py-12">
-          <h1 className="mx-auto w-full max-w-[800px] text-5xl font-semibold text-balance text-white">
-            Ad lorem ipsum dolor sit amet
-          </h1>
+      <section
+        id="hero"
+        className="relative flex h-[30dvh] flex-col justify-end px-6 py-12"
+      >
+        <div className="absolute top-0 left-0 -z-1 h-full w-full">
+          <video
+            className="h-full w-full object-cover object-[50%_55%]"
+            preload="metadata"
+            playsInline
+            autoPlay
+            loop
+            muted
+            poster={HERO_VIDEOS.home.poster}
+          >
+            <source src={HERO_VIDEOS.home.src} type="video/mp4" />
+            {VIDEO_FALLBACK_TEXT}
+          </video>
+          <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
         </div>
 
-        <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
+        <div className="mx-auto w-full max-w-[800px]">
+          <h1 className="text-5xl font-semibold text-balance text-white">
+            Get Your Free Property Assessment Today
+          </h1>
+        </div>
       </section>
       <section id="form" className="w-full bg-white px-6">
         <form
@@ -138,21 +157,20 @@ export default function FreeAssessmentPage() {
             </legend>
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
               {SERVICES.map((service, i) => {
+                const checkboxId = `checkbox-${service.label.toLowerCase().replace(/\s+/g, "-")}`;
                 return (
                   <div className="input-group w-full" key={i}>
                     <label
                       className="hover:bg-gray-25 hover:border-brand-300 has-checked:shadow-[0_0_0_2px_theme(colors.brand.500)] relative block w-full cursor-pointer rounded-sm border border-neutral-300 px-7 py-5 leading-5 transition-all duration-200"
-                      htmlFor="checkbox-damage"
+                      htmlFor={checkboxId}
                     >
                       <input
                         type="checkbox"
                         className="absolute top-3 right-3 h-4 w-4"
                         style={{ accentColor: "var(--brand-500)" }}
-                        id="checkbox-damage"
-                        checked={services?.includes("Damage Evaluation")}
-                        onChange={() =>
-                          handleServiceToggle("Damage Evaluation")
-                        }
+                        id={checkboxId}
+                        checked={services?.includes(service.label)}
+                        onChange={() => handleServiceToggle(service.label)}
                       />
                       {service.label.split(" ")[0]}
                       <br />
