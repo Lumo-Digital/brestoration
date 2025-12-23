@@ -13,10 +13,19 @@ export default function SmoothScrolling({
   children: React.ReactNode;
 }) {
   useEffect(() => {
+    // Disable smooth scrolling on mobile/touch devices for better performance
+    const isTouchDevice =
+      "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+    if (isTouchDevice) {
+      // Don't create ScrollSmoother on touch devices
+      return;
+    }
+
     const smoother = ScrollSmoother.create({
       smooth: 1.5,
       effects: true,
-      smoothTouch: 0.1,
+      smoothTouch: 0, // Disable on touch completely
     });
 
     return () => {
