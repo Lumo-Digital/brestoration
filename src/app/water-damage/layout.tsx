@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://brestorations.com";
+
 export const metadata: Metadata = {
   title: "Water Damage Restoration",
   description:
@@ -19,7 +21,7 @@ export const metadata: Metadata = {
     title: "Water Damage Restoration | Blue Restoration",
     description:
       "Professional water damage restoration services. Emergency water extraction and structural drying. Available 24/7 in Florida, South Carolina and North Carolina.",
-    url: "https://brestorations.com/water-damage",
+    url: `${siteUrl}/water-damage`,
     images: [
       {
         url: "/images/og.png",

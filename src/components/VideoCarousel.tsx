@@ -90,8 +90,8 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
                 key={index}
                 className={
                   isSingleVideo
-                    ? "relative aspect-video w-full overflow-hidden"
-                    : "relative aspect-4/5 min-w-0 flex-[0_0_85%] overflow-hidden sm:aspect-5/3"
+                    ? "relative aspect-square w-full overflow-hidden md:aspect-video"
+                    : "relative aspect-square min-w-0 flex-[0_0_85%] overflow-hidden sm:aspect-5/3"
                 }
               >
                 <Image
@@ -100,8 +100,8 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
                   fill
                   className="object-cover"
                 />
-                <div className="from-brand-dark-blue via-brand-dark-blue/0 has-[button:hover]:via-brand-dark-blue/40 absolute inset-0 flex flex-col items-center justify-end gap-3 bg-linear-to-t to-transparent p-6 pb-8 text-center text-white transition-colors duration-400">
-                  <p className="mb-3 w-2/3 text-sm sm:text-base">
+                <div className="from-brand-dark-blue via-brand-dark-blue/50 has-[button:hover]:via-brand-dark-blue/80 absolute inset-0 flex flex-col items-center justify-end gap-3 bg-linear-to-t to-transparent p-6 pb-8 text-center text-white transition-colors duration-400">
+                  <p className="mb-3 w-full text-sm text-balance sm:text-base md:w-2/3">
                     {video.description}
                   </p>
                   <button

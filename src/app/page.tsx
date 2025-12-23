@@ -15,6 +15,8 @@ import {
   HERO_VIDEOS,
 } from "@/constants";
 
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://brestorations.com";
+
 export const metadata: Metadata = {
   title: "Blue Restoration - 24/7 Emergency Restoration Services",
   description:
@@ -23,7 +25,7 @@ export const metadata: Metadata = {
     title: "Blue Restoration - 24/7 Emergency Services",
     description:
       "Professional water damage, fire damage, mold evaluation, and storm damage restoration services. 24/7 emergency response in Florida, South Carolina and North Carolina.",
-    url: "https://brestorations.com",
+    url: siteUrl,
     images: [
       {
         url: "/images/og.png",
@@ -120,7 +122,7 @@ export default function Home() {
                 key={item.title}
                 src={item.videoSrc}
                 alt={item.videoAlt}
-                className={`col-span-12 max-h-60 ${i < 2 ? "lg:col-span-6 lg:aspect-video lg:max-h-fit" : "lg:col-span-4 lg:aspect-5/4 lg:max-h-fit"}`}
+                className={`col-span-12 aspect-square max-h-80 w-full ${i < 2 ? "lg:col-span-6 lg:aspect-video lg:max-h-fit" : "lg:col-span-4 lg:aspect-5/4 lg:max-h-fit"}`}
               >
                 <h3 className="text-2xl leading-8 font-semibold">
                   {item.title}

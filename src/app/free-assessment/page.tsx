@@ -59,21 +59,23 @@ export default function FreeAssessmentPage() {
   };
 
   const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-    let value = e.target.value.replace(/\D/g, "");
+    // Extract only digits from the input
+    const digits = e.target.value.replace(/\D/g, "");
 
-    if (value.length > 10) {
-      value = value.slice(0, 10);
-    }
+    // Limit to 10 digits
+    const limitedDigits = digits.slice(0, 10);
 
+    // Format based on digit length
     let formattedValue = "";
-    if (value.length > 0) {
-      formattedValue = "(" + value.substring(0, 3);
-      if (value.length >= 3) {
-        formattedValue += ") " + value.substring(3, 6);
-      }
-      if (value.length >= 6) {
-        formattedValue += "-" + value.substring(6, 10);
-      }
+
+    if (limitedDigits.length === 0) {
+      formattedValue = "";
+    } else if (limitedDigits.length <= 3) {
+      formattedValue = `(${limitedDigits}`;
+    } else if (limitedDigits.length <= 6) {
+      formattedValue = `(${limitedDigits.slice(0, 3)}) ${limitedDigits.slice(3)}`;
+    } else {
+      formattedValue = `(${limitedDigits.slice(0, 3)}) ${limitedDigits.slice(3, 6)}-${limitedDigits.slice(6)}`;
     }
 
     setValue("phone", formattedValue);
