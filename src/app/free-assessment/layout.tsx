@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Free Property Assessment | Blue Restoration",
   description:
-    "Get a free property damage assessment from Blue Restoration. Our experts evaluate water, fire, mold, and storm damage at no cost. Available 24/7 in South Florida.",
+    "Get a free property damage assessment from Blue Restoration. Our experts evaluate water, fire, mold, and storm damage at no cost. Available 24/7 in Florida, South Carolina and North Carolina.",
   keywords: [
     "free property assessment",
     "free damage evaluation",
@@ -11,12 +11,14 @@ export const metadata: Metadata = {
     "restoration assessment",
     "free estimate",
     "damage evaluation",
-    "South Florida property assessment",
+    "Florida property assessment",
+    "North Carolina property assessment",
+    "South Carolina property assessment",
   ],
   openGraph: {
     title: "Free Property Assessment | Blue Restoration",
     description:
-      "Get a free property damage assessment from our experts. No-cost evaluation for water, fire, mold, and storm damage in South Florida.",
+      "Get a free property damage assessment from our experts. No-cost evaluation for water, fire, mold, and storm damage in Florida, South Carolina and North Carolina.",
     url: "https://bluerestoration.com/free-assessment",
     images: [
       {

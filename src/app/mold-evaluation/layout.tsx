@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Mold Evaluation & Remediation",
   description:
-    "Professional mold evaluation, testing, and remediation services in South Florida. Certified mold inspectors. Safe and effective mold removal. Free assessment available.",
+    "Professional mold evaluation, testing, and remediation services in Florida, South Carolina and North Carolina. Certified mold inspectors. Safe and effective mold removal. Free assessment available.",
   keywords: [
     "mold evaluation",
     "mold inspection",
@@ -11,13 +11,15 @@ export const metadata: Metadata = {
     "mold remediation",
     "mold removal",
     "mold assessment",
-    "South Florida mold inspection",
+    "Florida mold inspection",
+    "North Carolina mold inspection",
+    "South Carolina mold inspection",
     "black mold removal",
   ],
   openGraph: {
     title: "Mold Evaluation & Remediation | Blue Restoration",
     description:
-      "Professional mold evaluation, testing, and remediation services. Certified inspectors and safe mold removal in South Florida.",
+      "Professional mold evaluation, testing, and remediation services. Certified inspectors and safe mold removal in Florida, South Carolina and North Carolina.",
     url: "https://bluerestoration.com/mold-evaluation",
     images: [
       {

@@ -18,11 +18,11 @@ import {
 export const metadata: Metadata = {
   title: "Blue Restoration - 24/7 Emergency Restoration Services",
   description:
-    "Blue Restoration provides professional water damage, fire damage, mold evaluation, and storm damage restoration services in South Florida. Available 24/7 for emergencies. Free assessment available.",
+    "Blue Restoration provides professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina. Available 24/7 for emergencies. Free assessment available.",
   openGraph: {
-    title: "Blue Restoration - Expert Restoration Services in South Florida",
+    title: "Blue Restoration - 24/7 Emergency Services",
     description:
-      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services. 24/7 emergency response in South Florida.",
+      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services. 24/7 emergency response in Florida, South Carolina and North Carolina.",
     url: "https://bluerestoration.com",
     images: [
       {

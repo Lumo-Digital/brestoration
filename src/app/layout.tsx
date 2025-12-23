@@ -19,15 +19,16 @@ export const metadata: Metadata = {
     template: "%s | Blue Restoration",
   },
   description:
-    "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in South Florida. 24/7 emergency response. Free assessment available.",
+    "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina. 24/7 emergency response. Free assessment available.",
   keywords: [
     "water damage restoration",
     "fire damage restoration",
     "mold evaluation",
     "storm damage restoration",
     "emergency restoration",
-    "South Florida restoration",
-    "Doral restoration services",
+    "Florida restoration",
+    "North Carolina restoration",
+    "South Carolina restoration",
     "property damage restoration",
   ],
   authors: [{ name: "Blue Restoration" }],
@@ -49,9 +50,9 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://bluerestoration.com",
     siteName: "Blue Restoration",
-    title: "Blue Restoration - Expert Water, Fire & Mold Damage Restoration",
+    title: "Blue Restoration - Emergency Damage Restoration",
     description:
-      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in South Florida. 24/7 emergency response.",
+      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina. 24/7 emergency response.",
     images: [
       {
         url: "/images/og.png",
@@ -63,9 +64,9 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Blue Restoration - Expert Water, Fire & Mold Damage Restoration",
+    title: "Blue Restoration - Emergency Damage Restoration",
     description:
-      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in South Florida. 24/7 emergency response.",
+      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina. 24/7 emergency response.",
     images: ["/images/og.png"],
   },
   verification: {

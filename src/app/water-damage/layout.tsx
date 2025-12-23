@@ -3,7 +3,7 @@ import type { Metadata } from "next";
 export const metadata: Metadata = {
   title: "Water Damage Restoration",
   description:
-    "Professional water damage restoration services in South Florida. Emergency water extraction, structural drying, and mold prevention. Available 24/7. Free assessment.",
+    "Professional water damage restoration services in Florida, South Carolina and North Carolina. Emergency water extraction, structural drying, and mold prevention. Available 24/7. Free assessment.",
   keywords: [
     "water damage restoration",
     "emergency water extraction",
@@ -11,12 +11,14 @@ export const metadata: Metadata = {
     "water removal services",
     "structural drying",
     "water damage repair",
-    "South Florida water damage",
+    "Florida water damage",
+    "North Carolina water damage",
+    "South Carolina water damage",
   ],
   openGraph: {
     title: "Water Damage Restoration | Blue Restoration",
     description:
-      "Professional water damage restoration services. Emergency water extraction and structural drying. Available 24/7 in South Florida.",
+      "Professional water damage restoration services. Emergency water extraction and structural drying. Available 24/7 in Florida, South Carolina and North Carolina.",
     url: "https://bluerestoration.com/water-damage",
     images: [
       {

@@ -38,7 +38,7 @@ export default function StructuredData() {
     "@type": "LocalBusiness",
     name: "Blue Restoration",
     description:
-      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in South Florida.",
+      "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina.",
     url: "https://bluerestoration.com",
     telephone: "+1-305-497-9125",
     email: "info@brestorations.com",
@@ -76,11 +76,13 @@ export default function StructuredData() {
       "https://api.whatsapp.com/send?phone=13054979125",
     ],
     areaServed: [
+      "Florida",
+      "South Carolina",
+      "North Carolina",
       "Doral, FL",
       "Miami, FL",
       "Miami-Dade County, FL",
       "Broward County, FL",
-      "South Florida",
     ],
     priceRange: "$$",
   };
