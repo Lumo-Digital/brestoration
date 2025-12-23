@@ -39,7 +39,7 @@ export default function StructuredData() {
     name: "Blue Restoration",
     description:
       "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina.",
-    url: "https://bluerestoration.com",
+    url: "https://brestorations.com",
     telephone: "+1-305-497-9125",
     email: "info@brestorations.com",
     address: {

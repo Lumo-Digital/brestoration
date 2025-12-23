@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Fire Damage Restoration | Blue Restoration",
     description:
       "Expert fire damage restoration services. Smoke and soot removal, odor elimination, and structural repairs. 24/7 emergency response.",
-    url: "https://bluerestoration.com/fire-damage",
+    url: "https://brestorations.com/fire-damage",
     images: [
       {
         url: "/images/og.png",

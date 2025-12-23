@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Free Property Assessment | Blue Restoration",
     description:
       "Get a free property damage assessment from our experts. No-cost evaluation for water, fire, mold, and storm damage in Florida, South Carolina and North Carolina.",
-    url: "https://bluerestoration.com/free-assessment",
+    url: "https://brestorations.com/free-assessment",
     images: [
       {
         url: "/images/og.png",

@@ -24,7 +24,7 @@ export default function PrivacyPolicy() {
 
         <p className="mb-4 leading-snug text-gray-700">
           Blue Restoration LLC (&quot;we,&quot; &quot;us,&quot; or
-          &quot;our&quot;) operates www.bluerestoration.com (the
+          &quot;our&quot;) operates www.brestorations.com (the
           &quot;Website&quot;). This Privacy Policy explains how we collect,
           use, disclose, and safeguard your information when you visit our
           Website and submit information through our contact forms.
@@ -296,10 +296,10 @@ export default function PrivacyPolicy() {
           <br />
           Email:{" "}
           <a
-            href="mailto:info@bluerestoration.com"
+            href="mailto:info@brestorations.com"
             className="text-blue-600 hover:underline"
           >
-            info@bluerestoration.com
+            info@brestorations.com
           </a>
           <br />
           Phone:{" "}

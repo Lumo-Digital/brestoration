@@ -23,7 +23,7 @@ export const metadata: Metadata = {
     title: "Blue Restoration - 24/7 Emergency Services",
     description:
       "Professional water damage, fire damage, mold evaluation, and storm damage restoration services. 24/7 emergency response in Florida, South Carolina and North Carolina.",
-    url: "https://bluerestoration.com",
+    url: "https://brestorations.com",
     images: [
       {
         url: "/images/og.png",

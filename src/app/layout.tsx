@@ -13,7 +13,7 @@ const montserratSans = Montserrat({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://bluerestoration.com"),
+  metadataBase: new URL("https://brestorations.com"),
   title: {
     default: "Blue Restoration - Expert Water, Fire & Mold Damage Restoration",
     template: "%s | Blue Restoration",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://bluerestoration.com",
+    url: "https://brestorations.com",
     siteName: "Blue Restoration",
     title: "Blue Restoration - Emergency Damage Restoration",
     description:

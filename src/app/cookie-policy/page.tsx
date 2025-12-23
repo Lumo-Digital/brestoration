@@ -363,10 +363,10 @@ export default function CookiePolicy() {
           <br />
           Email:{" "}
           <a
-            href="mailto:info@bluerestoration.com"
+            href="mailto:info@brestorations.com"
             className="text-blue-600 hover:underline"
           >
-            info@bluerestoration.com
+            info@brestorations.com
           </a>
           <br />
           Phone:{" "}

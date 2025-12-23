@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     title: "Mold Evaluation & Remediation | Blue Restoration",
     description:
       "Professional mold evaluation, testing, and remediation services. Certified inspectors and safe mold removal in Florida, South Carolina and North Carolina.",
-    url: "https://bluerestoration.com/mold-evaluation",
+    url: "https://brestorations.com/mold-evaluation",
     images: [
       {
         url: "/images/og.png",

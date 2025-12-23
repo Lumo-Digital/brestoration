@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     title: "Water Damage Restoration | Blue Restoration",
     description:
       "Professional water damage restoration services. Emergency water extraction and structural drying. Available 24/7 in Florida, South Carolina and North Carolina.",
-    url: "https://bluerestoration.com/water-damage",
+    url: "https://brestorations.com/water-damage",
     images: [
       {
         url: "/images/og.png",
