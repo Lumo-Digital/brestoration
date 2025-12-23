@@ -45,8 +45,8 @@ next-env.d.ts
 # raw video files
 *_raw.mp4
 
-# video backups
-public/videos/.originals/
+# video files - all videos are now on Cloudinary CDN
+public/videos/
 
 # lighthouse reports
 lighthouse-report.*
