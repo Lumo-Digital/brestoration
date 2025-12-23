@@ -63,7 +63,7 @@ export default function WaterDamage() {
     <main>
       <section
         id="hero"
-        className="relative flex h-[40dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[40dvh]"
+        className="relative flex h-[80dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[40dvh]"
       >
         <div className="absolute top-0 left-0 -z-1 h-full w-full">
           <OptimizedVideo
