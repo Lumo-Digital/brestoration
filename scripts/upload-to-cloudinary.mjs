@@ -42,19 +42,9 @@ cloudinary.config({
 // Video mapping: local filename -> Cloudinary public_id
 const videoMappings = [
   {
-    file: "water-hero.mp4",
-    publicId: "blue-restoration/videos/water-damage/water-hero",
-    displayName: "Water Damage Hero",
-  },
-  {
-    file: "storm-hero.mp4",
-    publicId: "blue-restoration/videos/storm-damage/storm-hero",
-    displayName: "Storm Damage Hero",
-  },
-  {
-    file: "mold-hero.mp4",
-    publicId: "blue-restoration/videos/mold-evaluation/mold-hero",
-    displayName: "Mold Evaluation Hero",
+    file: "fire-hero.mp4",
+    publicId: "blue-restoration/videos/fire-damage/fire-hero",
+    displayName: "Fire Damage Hero",
   },
 ];
 

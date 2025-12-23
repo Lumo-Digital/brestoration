@@ -50,3 +50,6 @@ public/videos/
 
 # lighthouse reports
 lighthouse-report.*
+
+# Local Netlify folder
+.netlify

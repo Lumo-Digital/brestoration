@@ -19,7 +19,7 @@ export const HERO_VIDEOS = {
     alt: "Water damage restoration services and flood cleanup",
   },
   fireDamage: {
-    src: "https://res.cloudinary.com/dmsciazqx/video/upload/q_auto,f_auto/v1766446329/blue-restoration/videos/fire-damage/fire-hero.mp4",
+    src: "https://res.cloudinary.com/dmsciazqx/video/upload/q_auto,f_auto/v1766452178/blue-restoration/videos/fire-damage/fire-hero.mp4",
     poster: "/images/posters/fire_poster.webp",
     alt: "Fire and smoke damage restoration services",
   },

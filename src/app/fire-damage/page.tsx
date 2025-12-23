@@ -49,7 +49,7 @@ export default function FireDamage() {
     <main>
       <section
         id="hero"
-        className="relative flex h-[80dvh] flex-col justify-end gap-10 px-6 py-12 sm:h-[40dvh]"
+        className="relative flex h-[80dvh] flex-col justify-end gap-10 px-6 py-12 md:h-[50dvh] lg:h-[40dvh]"
       >
         <div className="absolute top-0 left-0 -z-1 h-full w-full">
           <OptimizedVideo
@@ -71,10 +71,10 @@ export default function FireDamage() {
         </div>
       </section>
       <section id="services" className="bg-white px-6 py-12 md:py-20">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-12 md:gap-20">
+        <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 md:grid-cols-2 md:gap-12 lg:grid-cols-12 lg:gap-20">
           <div
             ref={pinnedRef}
-            className="flex flex-col items-start md:col-span-4"
+            className="flex flex-col items-start lg:col-span-4"
           >
             <Eyebrow>{timeline1?.eyebrow || "Our Process"}</Eyebrow>
             <h2 className="mx-auto mb-8 w-full text-left text-3xl leading-8 font-semibold text-balance">
@@ -86,7 +86,7 @@ export default function FireDamage() {
           </div>
           <div
             ref={scrollRef}
-            className="relative flex flex-col gap-15 md:col-span-8 md:gap-20"
+            className="relative flex flex-col gap-15 md:gap-15 lg:col-span-8 lg:gap-20"
           >
             {/* Línea vertical con gradient que se desvanece al final */}
             <div

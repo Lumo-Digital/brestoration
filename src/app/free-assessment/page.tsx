@@ -121,7 +121,7 @@ export default function FreeAssessmentPage() {
     <main className="flex flex-col">
       <section
         id="hero"
-        className="relative flex h-[30dvh] flex-col justify-end px-6 py-12"
+        className="relative flex h-[80dvh] flex-col justify-end px-6 py-12 md:h-[50dvh] lg:h-[40dvh]"
       >
         <div className="absolute top-0 left-0 -z-1 h-full w-full">
           <video
