@@ -6,7 +6,8 @@ import ScrollToTop from "@/components/ScrollToTop";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import StructuredData from "@/components/StructuredData";
 import CookieConsentBanner from "@/components/CookieConsentBanner";
-import Analytics from "@/components/Analytics";
+import TrackingScripts from "@/components/TrackingScripts";
+import GTMNoscript from "@/components/GTMNoscript";
 import "./globals.css";
 
 const montserratSans = Montserrat({
@@ -140,8 +141,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserratSans.variable} antialiased`}>
+        <GTMNoscript />
         <StructuredData />
-        <Analytics />
+        <TrackingScripts />
         <SmoothScrolling>
           <ScrollToTop />
           <Header />
