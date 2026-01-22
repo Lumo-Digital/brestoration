@@ -115,15 +115,14 @@ export default function Footer() {
               </a>
             </li>
             <li>
-              <Link
-                href="#"
+              <a
+                href="tel:+17046743965"
                 className="text-white transition-colors hover:text-gray-300"
               >
-                3625 NW 82nd Ave Suite 111
-                <br />
-                Doral, FL
-              </Link>
+                +1 704-674-3965
+              </a>
             </li>
+            <li>FL, NC & SC</li>
           </ul>
         </div>
 
