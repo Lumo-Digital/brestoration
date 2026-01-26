@@ -105,6 +105,16 @@ export default function FreeAssessmentPage() {
       const result = await response.json();
 
       if (response.ok) {
+        // Track successful form submission in GTM
+        // @ts-expect-error - dataLayer is provided by GTM
+        window.dataLayer = window.dataLayer || [];
+        // @ts-expect-error - dataLayer is provided by GTM
+        window.dataLayer.push({
+          event: "form_submit_success",
+          formId: "contact-form",
+          formName: "Free Assessment",
+        });
+
         alert("✓ Your request has been sent successfully!");
         reset();
       } else {
