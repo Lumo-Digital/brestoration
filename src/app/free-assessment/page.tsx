@@ -105,14 +105,23 @@ export default function FreeAssessmentPage() {
       const result = await response.json();
 
       if (response.ok) {
-        // Track successful form submission in GTM
         // @ts-expect-error - dataLayer is provided by GTM
         window.dataLayer = window.dataLayer || [];
+
+        // GTM: general form submission event
         // @ts-expect-error - dataLayer is provided by GTM
         window.dataLayer.push({
           event: "form_submit_success",
           formId: "contact-form",
           formName: "Free Assessment",
+        });
+
+        // GA4 (G-VCPFTC2Q4L): in GTM create a GA4 Event tag triggered by "generate_lead",
+        // then import it as a conversion in Google Ads
+        // @ts-expect-error - dataLayer is provided by GTM
+        window.dataLayer.push({
+          event: "generate_lead",
+          form_name: "Free Assessment",
         });
 
         alert("✓ Your request has been sent successfully!");
