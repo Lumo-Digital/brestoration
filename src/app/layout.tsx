@@ -1,13 +1,5 @@
 import type { Metadata } from "next";
 import { Montserrat } from "next/font/google";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import ScrollToTop from "@/components/ScrollToTop";
-import SmoothScrolling from "@/components/SmoothScrolling";
-import StructuredData from "@/components/StructuredData";
-import CookieConsentBanner from "@/components/CookieConsentBanner";
-import TrackingScripts from "@/components/TrackingScripts";
-import GTMNoscript from "@/components/GTMNoscript";
 import "./globals.css";
 
 const montserratSans = Montserrat({
@@ -141,16 +133,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${montserratSans.variable} antialiased`}>
-        <GTMNoscript />
-        <StructuredData />
-        <TrackingScripts />
-        <SmoothScrolling>
-          <ScrollToTop />
-          <Header />
-          {children}
-          <Footer />
-        </SmoothScrolling>
-        <CookieConsentBanner />
+        {children}
       </body>
     </html>
   );

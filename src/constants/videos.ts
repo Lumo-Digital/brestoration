@@ -33,6 +33,11 @@ export const HERO_VIDEOS = {
     poster: "/images/posters/mold_poster.webp",
     alt: "Professional mold inspection and remediation services",
   },
+  roofEvaluation: {
+    src: "https://res.cloudinary.com/dmsciazqx/video/upload/q_auto,f_auto/v1773209575/blue-restoration/videos/roof-evaluation/roof-hero.mp4",
+    poster: "/images/posters/roof_poster.webp",
+    alt: "Professional roof evaluation and repair services",
+  },
 } as const;
 
 export const VIDEO_CAROUSEL_SECTION = {

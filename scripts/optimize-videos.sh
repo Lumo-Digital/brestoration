@@ -28,6 +28,7 @@ videos=(
   "public/videos/fire-damage/fire-hero.mp4"
   "public/videos/storm-damage/storm-hero.mp4"
   "public/videos/mold-evaluation/mold-hero.mp4"
+  "public/videos/roof-evaluation/roof-hero.mp4"
   "public/videos/home/quick-response.mp4"
   "public/videos/home/expertise-and-experience.mp4"
   "public/videos/home/insurance-knowledge.mp4"

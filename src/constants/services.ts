@@ -3,6 +3,7 @@ import {
   BrickWall,
   Droplets,
   CloudLightning,
+  Home,
   type LucideIcon,
 } from "lucide-react";
 
@@ -242,6 +243,44 @@ export const SERVICES: Service[] = [
             title: "Document the damage",
             description:
               "Take photos or videos of the damage to your home and any affected belongings for insurance purposes. Keep any receipts or invoices for services rendered or items replaced. Water damage can be a stressful and overwhelming situation but taking these steps as soon as possible can help minimize the damage and ensure a successful restoration process.",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    label: "Roof Evaluation",
+    href: "/roof-evaluation",
+    icon: Home,
+    title: "Roof Evaluation – Protect Your Home From the Top Down",
+    description:
+      "Your roof is your home's first line of defense. A professional roof evaluation uncovers hidden issues, saves you money, prevents major damage, and ensures your family's safety.",
+    timelines: [
+      {
+        eyebrow: "Our Process",
+        title: "How Our Roof Evaluation Works",
+        description:
+          "From booking to completion, our streamlined four-step process ensures a thorough evaluation and quality results.",
+        steps: [
+          {
+            title: "Book Your Free Evaluation",
+            description:
+              "Schedule your free roof evaluation online at a time that's convenient for you. Our team works around your schedule to make the process as easy as possible.",
+          },
+          {
+            title: "On-Site Damage Assessment",
+            description:
+              "An expert consultant visits your home to conduct a thorough inspection of shingles, seals, drainage, and structural integrity to identify any existing or potential issues.",
+          },
+          {
+            title: "Customized Repair Plan",
+            description:
+              "You receive a detailed, customized repair or replacement plan complete with transparent costs and realistic timelines — no surprises, no hidden fees.",
+          },
+          {
+            title: "Professional Execution",
+            description:
+              "Our professional team completes all approved work to the highest standards, using durable, weather-resistant materials backed by warranties.",
           },
         ],
       },
