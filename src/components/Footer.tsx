@@ -55,6 +55,14 @@ export default function Footer() {
             </li>
             <li>
               <Link
+                href={"/roof-evaluation"}
+                className="text-white transition-colors hover:text-gray-300"
+              >
+                Roof Evaluation
+              </Link>
+            </li>
+            <li>
+              <Link
                 href={"/free-assessment"}
                 className="text-white transition-colors hover:text-gray-300"
               >
