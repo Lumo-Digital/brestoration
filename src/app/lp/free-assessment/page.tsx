@@ -71,6 +71,12 @@ export default function LPFreeAssessmentPage() {
         src="https://link.msgsndr.com/js/form_embed.js"
         strategy="lazyOnload"
       />
+      <Script
+        src="https://widgets.leadconnectorhq.com/loader.js"
+        data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js"
+        data-widget-id="69bc145bfa352c8ead2883a0"
+        strategy="lazyOnload"
+      />
     </main>
   );
 }
