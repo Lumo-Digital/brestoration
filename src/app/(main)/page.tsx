@@ -88,13 +88,13 @@ export default function Home() {
           <h2 className="mx-auto mb-8 w-full text-center text-3xl leading-8 font-semibold text-balance md:w-2/3 lg:w-2/4">
             Comprehensive Solutions for Every Type of Property Damage
           </h2>
-          <ul className="grid grid-cols-12 gap-4">
+          <ul className="grid grid-cols-10 gap-4">
             {SERVICES.map((service) => {
               const Icon = service.icon;
               return (
                 <li
                   key={service.label}
-                  className="hover:bg-brand-dark-blue/20 col-span-6 aspect-7/6 rounded border border-gray-400 bg-white transition-all sm:aspect-6/3 md:aspect-8/3 lg:col-span-3 lg:aspect-2/1"
+                  className="hover:bg-brand-dark-blue/20 col-span-5 aspect-7/6 rounded border border-gray-400 bg-white transition-all sm:aspect-6/3 md:aspect-8/3 lg:col-span-2 lg:aspect-2/1"
                 >
                   <Link
                     href={service.href}
