@@ -47,6 +47,20 @@ export async function POST(request: NextRequest) {
       });
     }
 
+    if (formData.isHomeOwner) {
+      customFields.push({
+        key: "are_you_a_home_owner",
+        value: formData.isHomeOwner,
+      });
+    }
+
+    if (formData.hasInsurance) {
+      customFields.push({
+        key: "do_you_have_insurance",
+        value: formData.hasInsurance,
+      });
+    }
+
     if (customFields.length > 0) {
       payload.customFields = customFields;
     }

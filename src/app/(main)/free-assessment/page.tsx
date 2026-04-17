@@ -10,6 +10,8 @@ import { HERO_VIDEOS, VIDEO_FALLBACK_TEXT } from "@/constants/videos";
 
 const formSchema = z.object({
   services: z.array(z.string()).min(1, "Please select at least one service"),
+  isHomeOwner: z.enum(["yes", "no"]),
+  hasInsurance: z.enum(["yes", "no"]),
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z
@@ -35,6 +37,8 @@ export default function FreeAssessmentPage() {
     resolver: zodResolver(formSchema),
     defaultValues: {
       services: [],
+      isHomeOwner: undefined,
+      hasInsurance: undefined,
       firstName: "",
       lastName: "",
       email: "",
@@ -45,6 +49,8 @@ export default function FreeAssessmentPage() {
   });
 
   const services = watch("services");
+  const isHomeOwner = watch("isHomeOwner");
+  const hasInsurance = watch("hasInsurance");
 
   const handleServiceToggle = (service: string) => {
     const currentServices = services || [];
@@ -90,6 +96,11 @@ export default function FreeAssessmentPage() {
       zipCode: data.zipcode,
       comments: data.comments,
       servicesOfInterest: data.services,
+      isHomeOwner:
+        data.isHomeOwner?.charAt(0).toUpperCase() + data.isHomeOwner?.slice(1),
+      hasInsurance:
+        data.hasInsurance?.charAt(0).toUpperCase() +
+        data.hasInsurance?.slice(1),
       tags: ["website lead"],
     };
 
@@ -207,6 +218,72 @@ export default function FreeAssessmentPage() {
               </span>
             )}
           </fieldset>
+          <div className="mt-10 grid grid-cols-1 gap-6 md:grid-cols-2">
+            <fieldset>
+              <legend className="mb-4 text-sm font-semibold tracking-[0.25rem] uppercase">
+                Are you a home owner? <span className="text-red-500">*</span>
+              </legend>
+              <div className="flex gap-4">
+                {(["yes", "no"] as const).map((val) => (
+                  <label
+                    key={val}
+                    className="hover:bg-gray-25 hover:border-brand-300 has-checked:shadow-[0_0_0_2px_theme(colors.brand.500)] relative flex cursor-pointer items-center gap-3 rounded-sm border border-neutral-300 px-6 py-4 transition-all duration-200"
+                  >
+                    <input
+                      type="radio"
+                      name="isHomeOwner"
+                      value={val}
+                      checked={isHomeOwner === val}
+                      onChange={() =>
+                        setValue("isHomeOwner", val, { shouldValidate: true })
+                      }
+                      className="h-4 w-4"
+                      style={{ accentColor: "var(--brand-500)" }}
+                    />
+                    <span className="capitalize">{val}</span>
+                  </label>
+                ))}
+              </div>
+              {errors.isHomeOwner && (
+                <span className="error-message mt-2 text-sm text-red-500">
+                  Please select an option
+                </span>
+              )}
+            </fieldset>
+
+            <fieldset>
+              <legend className="mb-4 text-sm font-semibold tracking-[0.25rem] uppercase">
+                Do you have insurance? <span className="text-red-500">*</span>
+              </legend>
+              <div className="flex gap-4">
+                {(["yes", "no"] as const).map((val) => (
+                  <label
+                    key={val}
+                    className="hover:bg-gray-25 hover:border-brand-300 has-checked:shadow-[0_0_0_2px_theme(colors.brand.500)] relative flex cursor-pointer items-center gap-3 rounded-sm border border-neutral-300 px-6 py-4 transition-all duration-200"
+                  >
+                    <input
+                      type="radio"
+                      name="hasInsurance"
+                      value={val}
+                      checked={hasInsurance === val}
+                      onChange={() =>
+                        setValue("hasInsurance", val, { shouldValidate: true })
+                      }
+                      className="h-4 w-4"
+                      style={{ accentColor: "var(--brand-500)" }}
+                    />
+                    <span className="capitalize">{val}</span>
+                  </label>
+                ))}
+              </div>
+              {errors.hasInsurance && (
+                <span className="error-message mt-2 text-sm text-red-500">
+                  Please select an option
+                </span>
+              )}
+            </fieldset>
+          </div>
+
           <fieldset className="mt-10">
             <legend className="mb-8 text-sm font-semibold tracking-[0.25rem] uppercase">
               Contact details
