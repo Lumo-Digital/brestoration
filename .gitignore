@@ -12,6 +12,9 @@
 
 # testing
 /coverage
+
+# claude code
+.claude/
 /playwright-report
 /test-results
 playwright.config.ts
