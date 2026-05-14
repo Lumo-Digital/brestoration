@@ -70,9 +70,9 @@ export default function FreeAssessmentPage() {
     }
   };
 
-  const handlePhoneInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePhoneInput = (e: React.SyntheticEvent<HTMLInputElement>) => {
     // Extract only digits from the input
-    const digits = e.target.value.replace(/\D/g, "");
+    const digits = e.currentTarget.value.replace(/\D/g, "");
 
     // Limit to 10 digits
     const limitedDigits = digits.slice(0, 10);
