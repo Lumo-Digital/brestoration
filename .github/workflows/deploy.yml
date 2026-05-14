@@ -1,20 +1,59 @@
-name: Deploy to Netlify
+name: CI & Deploy
 
 on:
   push:
-    branches: [main, staging]
+    branches: [dev, staging, main]
   pull_request:
-    branches: [main]
+    branches: [dev, staging, main]
 
-# Permisos mínimos necesarios
 permissions:
   contents: read
   deployments: write
   pull-requests: write
 
 jobs:
-  deploy:
+  quality-checks:
+    name: Quality Checks
     runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: "11"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Run ESLint
+        run: pnpm lint
+
+      - name: Run Prettier check
+        run: pnpm format:check
+
+      - name: Type check
+        run: pnpm exec tsc --noEmit
+
+      - name: Build
+        run: pnpm build
+        env:
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
+          NEXT_PUBLIC_MAPBOX_API_KEY: ${{ secrets.NEXT_PUBLIC_MAPBOX_API_KEY }}
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    needs: quality-checks
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/main' || github.ref == 'refs/heads/staging')
 
     steps:
       - name: Checkout repository
@@ -34,66 +73,42 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Run linter
-        run: pnpm run lint
-
-      - name: Build project
-        run: pnpm run build
+      - name: Build
+        run: pnpm build
         env:
           GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
           NEXT_PUBLIC_MAPBOX_API_KEY: ${{ secrets.NEXT_PUBLIC_MAPBOX_API_KEY }}
 
       - name: Deploy to Netlify (Production)
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main'
         id: deploy-prod
         run: |
-          echo "🚀 Deploying to production..."
           DEPLOY_OUTPUT=$(pnpm exec netlify deploy --prod --dir=.next --message "Deploy from GitHub Actions" --timeout=600 --json)
           DEPLOY_URL=$(echo $DEPLOY_OUTPUT | jq -r '.deploy_url // .url')
           echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
           echo "✅ Production deployed to: $DEPLOY_URL"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_PROJECT_ID }}
 
       - name: Deploy to Netlify (Staging)
-        if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/staging'
         id: deploy-staging
         run: |
-          echo "🔄 Deploying to staging environment..."
           DEPLOY_OUTPUT=$(pnpm exec netlify deploy --prod --dir=.next --message "Staging deploy from ${{ github.sha }}" --timeout=600 --json)
           DEPLOY_URL=$(echo $DEPLOY_OUTPUT | jq -r '.deploy_url // .url')
           echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
           echo "✅ Staging deployed to: $DEPLOY_URL"
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
           NETLIFY_SITE_ID: ${{ secrets.NETLIFY_STAGING_SITE_ID }}
 
-      - name: Deploy to Netlify (Preview)
-        if: github.event_name == 'pull_request'
-        id: deploy-preview
-        run: |
-          echo "👀 Deploying preview for PR #${{ github.event.number }}..."
-          DEPLOY_OUTPUT=$(pnpm exec netlify deploy --dir=.next --message "Preview from PR #${{ github.event.number }}" --json)
-          DEPLOY_URL=$(echo $DEPLOY_OUTPUT | jq -r '.deploy_url')
-          echo "deploy-url=$DEPLOY_URL" >> $GITHUB_OUTPUT
-          echo "✅ Preview deployed to: $DEPLOY_URL"
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          NETLIFY_AUTH_TOKEN: ${{ secrets.NETLIFY_AUTH_TOKEN }}
-          NETLIFY_SITE_ID: ${{ secrets.NETLIFY_SITE_ID }}
-
-      # Crear GitHub Deployment para Production
       - name: Create GitHub Deployment (Production)
-        if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/main'
         uses: actions/github-script@v7
         with:
           script: |
             const deploymentUrl = '${{ steps.deploy-prod.outputs.deploy-url }}';
-
-            // Crear deployment
             const deployment = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -102,8 +117,6 @@ jobs:
               auto_merge: false,
               required_contexts: []
             });
-
-            // Marcar como exitoso con URL
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -113,14 +126,12 @@ jobs:
               description: 'Production deployment successful'
             });
 
-      # Crear GitHub Deployment para Staging
       - name: Create GitHub Deployment (Staging)
-        if: github.ref == 'refs/heads/staging' && github.event_name == 'push'
+        if: github.ref == 'refs/heads/staging'
         uses: actions/github-script@v7
         with:
           script: |
             const deploymentUrl = '${{ steps.deploy-staging.outputs.deploy-url }}';
-
             const deployment = await github.rest.repos.createDeployment({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -129,7 +140,6 @@ jobs:
               auto_merge: false,
               required_contexts: []
             });
-
             await github.rest.repos.createDeploymentStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -138,31 +148,3 @@ jobs:
               environment_url: deploymentUrl,
               description: 'Staging deployment successful'
             });
-
-      # Comentar en PR con URL del preview
-      - name: Comment PR with Preview URL
-        if: github.event_name == 'pull_request'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            const deployUrl = '${{ steps.deploy-preview.outputs.deploy-url }}';
-
-            if (deployUrl && deployUrl !== 'null') {
-              const comment = `## 🚀 Deploy Preview
-
-              **Preview URL**: ${deployUrl}
-
-              - ✅ Deploy successful
-              - 📦 Built from commit: \`${context.sha.substring(0, 7)}\`
-              - 🌿 Branch: \`${context.payload.pull_request.head.ref}\`
-
-              ---
-              *Preview will update automatically on new commits*`;
-
-              await github.rest.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: comment
-              });
-            }
