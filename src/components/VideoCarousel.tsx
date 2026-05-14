@@ -98,6 +98,9 @@ export default function VideoCarousel({ videos }: VideoCarouselProps) {
                   src={video.thumb}
                   alt={`Customer testimonial video thumbnail - ${video.description}`}
                   fill
+                  sizes={
+                    isSingleVideo ? "(min-width: 896px) 896px, 100vw" : "85vw"
+                  }
                   className="object-cover"
                 />
                 <div className="from-brand-dark-blue via-brand-dark-blue/50 has-[button:hover]:via-brand-dark-blue/80 absolute inset-0 flex flex-col items-center justify-end gap-3 bg-linear-to-t to-transparent p-6 pb-8 text-center text-white transition-colors duration-400">

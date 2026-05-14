@@ -99,8 +99,11 @@ export default function Analytics() {
                 t.src=v;s=b.getElementsByTagName(e)[0];
                 s.parentNode.insertBefore(t,s)}(window, document,'script',
                 'https://connect.facebook.net/en_US/fbevents.js');
-                fbq('init', '${META_PIXEL_ID}');
-                fbq('track', 'PageView');
+                if (!window._fbPixelInitialized) {
+                  window._fbPixelInitialized = true;
+                  fbq('init', '${META_PIXEL_ID}');
+                  fbq('track', 'PageView');
+                }
               `,
             }}
           />
@@ -128,7 +131,7 @@ function clearAnalyticsCookies() {
   for (let i = 0; i < cookies.length; i++) {
     const cookie = cookies[i];
     const eqPos = cookie.indexOf("=");
-    const name = eqPos > -1 ? cookie.substr(0, eqPos).trim() : cookie.trim();
+    const name = eqPos > -1 ? cookie.slice(0, eqPos).trim() : cookie.trim();
 
     // Clear Google Analytics cookies
     if (

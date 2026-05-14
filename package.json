@@ -25,10 +25,15 @@
     "react-cookie-consent": "^9.0.0",
     "react-dom": "19.2.1",
     "react-hook-form": "^7.67.0",
+    "sonner": "^2.0.7",
     "yet-another-react-lightbox": "^3.27.0",
     "zod": "^4.1.13"
   },
   "pnpm": {
+    "onlyBuiltDependencies": [
+      "sharp",
+      "unrs-resolver"
+    ],
     "overrides": {
       "minimatch@<3.1.4": ">=3.1.4",
       "minimatch@>=9.0.0 <9.0.7": ">=9.0.7",

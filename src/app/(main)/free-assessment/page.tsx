@@ -1,23 +1,25 @@
 "use client";
 
+import { useState } from "react";
+import { toast } from "sonner";
+import { Check, Loader2, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import Button from "@/components/Button";
 import MapSection from "@/components/MapSection";
 import { SERVICES } from "@/constants/services";
 import { HERO_VIDEOS, VIDEO_FALLBACK_TEXT } from "@/constants/videos";
 
 const formSchema = z.object({
   services: z.array(z.string()).min(1, "Please select at least one service"),
-  isHomeOwner: z.enum(["yes", "no"]),
-  hasInsurance: z.enum(["yes", "no"]),
+  isHomeOwner: z.enum(["yes", "no"], { error: "Please select an option" }),
+  hasInsurance: z.enum(["yes", "no"], { error: "Please select an option" }),
   firstName: z.string().min(1, "First name is required"),
   lastName: z.string().min(1, "Last name is required"),
   email: z
     .string()
     .min(1, "Email is required")
-    .email({ message: "Please enter a valid email" }),
+    .pipe(z.email("Please enter a valid email")),
   phone: z.string().optional(),
   zipcode: z.string().optional(),
   comments: z.string().optional(),
@@ -26,10 +28,14 @@ const formSchema = z.object({
 type FormData = z.infer<typeof formSchema>;
 
 export default function FreeAssessmentPage() {
+  const [submitState, setSubmitState] = useState<
+    "idle" | "loading" | "success" | "error"
+  >("idle");
+
   const {
     register,
     handleSubmit,
-    formState: { errors, isSubmitting },
+    formState: { errors },
     reset,
     setValue,
     watch,
@@ -88,6 +94,8 @@ export default function FreeAssessmentPage() {
   };
 
   const onSubmit = async (data: FormData) => {
+    setSubmitState("loading");
+
     const payload = {
       firstName: data.firstName,
       lastName: data.lastName,
@@ -135,19 +143,25 @@ export default function FreeAssessmentPage() {
           form_name: "Free Assessment",
         });
 
-        alert("✓ Your request has been sent successfully!");
+        setSubmitState("success");
+        toast.success("Your request has been sent successfully!");
         reset();
+        setTimeout(() => setSubmitState("idle"), 3000);
       } else {
-        alert("✕ " + (result.error || "Something went wrong"));
+        setSubmitState("error");
+        toast.error(result.error || "Something went wrong");
+        setTimeout(() => setSubmitState("idle"), 3000);
       }
     } catch {
-      alert("✕ Connection error. Please try again.");
+      setSubmitState("error");
+      toast.error("Connection error. Please try again.");
+      setTimeout(() => setSubmitState("idle"), 3000);
     }
   };
 
-  const errorMessages = Object.values(errors)
-    .map((error) => error.message)
-    .filter(Boolean);
+  const onError = () => {
+    toast.error("Please fill in all required fields before submitting.");
+  };
 
   return (
     <main className="flex flex-col">
@@ -181,7 +195,7 @@ export default function FreeAssessmentPage() {
         <form
           id="contact-form"
           className="mx-auto mt-10 mb-12 w-full max-w-[800px]"
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={handleSubmit(onSubmit, onError)}
         >
           <fieldset>
             <legend className="mb-8 text-sm font-semibold tracking-[0.25rem] uppercase">
@@ -379,6 +393,7 @@ export default function FreeAssessmentPage() {
                   {...register("zipcode")}
                   className="focus:border-brand-500 w-full rounded-sm border border-neutral-300 p-3 transition-colors duration-200 focus:outline-none"
                   placeholder="12345"
+                  maxLength={5}
                 />
               </div>
               <div className="input-group w-full md:col-span-2">
@@ -397,28 +412,33 @@ export default function FreeAssessmentPage() {
                 />
               </div>
 
-              <Button
+              <button
                 type="submit"
-                className="col-span-1 mt-5 cursor-pointer md:col-span-2"
-                disabled={isSubmitting}
+                disabled={
+                  submitState === "loading" || submitState === "success"
+                }
+                className={`col-span-1 mt-5 inline-flex w-full items-center justify-center px-12 py-3 font-semibold transition-all duration-300 md:col-span-2 ${submitState === "idle" ? "bg-brand-yellow cursor-pointer hover:brightness-80" : ""} ${submitState === "loading" ? "bg-brand-yellow cursor-not-allowed opacity-70" : ""} ${submitState === "success" ? "cursor-default bg-green-500 text-white" : ""} ${submitState === "error" ? "bg-red-500 text-white" : ""} `}
               >
-                {isSubmitting ? "Sending..." : "Send"}
-              </Button>
-
-              {errorMessages.length > 0 && (
-                <div className="col-span-1 mt-4 md:col-span-2">
-                  <div className="rounded-sm border border-red-200 bg-red-50 p-4">
-                    <h3 className="mb-2 text-sm font-semibold text-red-800">
-                      Please fix the following errors:
-                    </h3>
-                    <ul className="list-inside list-disc space-y-1 text-sm text-red-600">
-                      {errorMessages.map((error, index) => (
-                        <li key={index}>{error}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
+                {submitState === "idle" && "Send"}
+                {submitState === "loading" && (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Sending...
+                  </>
+                )}
+                {submitState === "success" && (
+                  <>
+                    <Check className="mr-2 h-4 w-4" />
+                    Sent!
+                  </>
+                )}
+                {submitState === "error" && (
+                  <>
+                    <X className="mr-2 h-4 w-4" />
+                    Something went wrong
+                  </>
+                )}
+              </button>
             </div>
           </fieldset>
         </form>
