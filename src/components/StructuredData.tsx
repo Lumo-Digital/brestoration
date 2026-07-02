@@ -1,4 +1,11 @@
 import Script from "next/script";
+import { SERVICE_AREAS } from "@/constants/serviceAreas";
+
+const STATE_ABBREVIATIONS: Record<string, string> = {
+  Florida: "FL",
+  "South Carolina": "SC",
+  "North Carolina": "NC",
+};
 
 interface LocalBusinessSchema {
   "@context": string;
@@ -76,89 +83,25 @@ export default function StructuredData() {
       "https://api.whatsapp.com/send?phone=13054979125",
     ],
     areaServed: [
-      "Florida",
-      "South Carolina",
-      "North Carolina",
-      "Doral, FL",
-      "Miami, FL",
+      ...SERVICE_AREAS.map((group) => group.state),
       "Miami-Dade County, FL",
       "Broward County, FL",
+      ...SERVICE_AREAS.flatMap((group) =>
+        group.cities.map(
+          (city) => `${city}, ${STATE_ABBREVIATIONS[group.state]}`
+        )
+      ),
     ],
     priceRange: "$$",
   };
 
-  const serviceSchema = {
-    "@context": "https://schema.org",
-    "@type": "Service",
-    serviceType: "Restoration Services",
-    provider: {
-      "@type": "LocalBusiness",
-      name: "Blue Restoration",
-    },
-    areaServed: {
-      "@type": "State",
-      name: "Florida",
-    },
-    hasOfferCatalog: {
-      "@type": "OfferCatalog",
-      name: "Restoration Services",
-      itemListElement: [
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Water Damage Restoration",
-            description:
-              "Professional water damage restoration and emergency water extraction services.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Fire Damage Restoration",
-            description:
-              "Complete fire damage restoration including smoke and soot removal.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Mold Evaluation",
-            description:
-              "Professional mold inspection, testing, and remediation services.",
-          },
-        },
-        {
-          "@type": "Offer",
-          itemOffered: {
-            "@type": "Service",
-            name: "Storm Damage Restoration",
-            description:
-              "Emergency storm damage restoration and repair services.",
-          },
-        },
-      ],
-    },
-  };
-
   return (
-    <>
-      <Script
-        id="local-business-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(localBusinessSchema),
-        }}
-      />
-      <Script
-        id="service-schema"
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(serviceSchema),
-        }}
-      />
-    </>
+    <Script
+      id="local-business-schema"
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{
+        __html: JSON.stringify(localBusinessSchema),
+      }}
+    />
   );
 }

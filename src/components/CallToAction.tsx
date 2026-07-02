@@ -11,8 +11,7 @@ export default function CallToAction() {
         poster={HERO_VIDEOS.home.poster}
         alt={HERO_VIDEOS.home.alt}
         className="absolute top-0 left-0 -z-1 h-full w-full object-cover"
-        loading="eager"
-        preload="auto"
+        disableOnMobile
       />
       <div className="from-brand-dark-blue/80 to-brand-dark-blue flex w-full flex-col justify-end gap-6 bg-linear-to-b sm:items-center">
         <div className="mx-auto flex w-full max-w-7xl flex-col items-center p-6 py-25">

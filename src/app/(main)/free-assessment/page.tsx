@@ -6,7 +6,7 @@ import { Check, Loader2, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
-import MapSection from "@/components/MapSection";
+import MapSection from "@/components/LazyMapSection";
 import { SERVICES } from "@/constants/services";
 import { HERO_VIDEOS, VIDEO_FALLBACK_TEXT } from "@/constants/videos";
 
@@ -179,7 +179,11 @@ export default function FreeAssessmentPage() {
             muted
             poster={HERO_VIDEOS.home.poster}
           >
-            <source src={HERO_VIDEOS.home.src} type="video/mp4" />
+            <source
+              src={HERO_VIDEOS.home.src}
+              type="video/mp4"
+              media="(min-width: 768px)"
+            />
             {VIDEO_FALLBACK_TEXT}
           </video>
           <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />

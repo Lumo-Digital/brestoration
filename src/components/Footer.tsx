@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { SERVICE_AREAS } from "@/constants/serviceAreas";
 
 export default function Footer() {
   return (
@@ -32,6 +33,7 @@ export default function Footer() {
             <li>
               <Link
                 href={"/fire-damage"}
+                prefetch={false}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Fire Damage
@@ -40,6 +42,7 @@ export default function Footer() {
             <li>
               <Link
                 href={"/mold-evaluation"}
+                prefetch={false}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Mold Evaluation
@@ -48,6 +51,7 @@ export default function Footer() {
             <li>
               <Link
                 href={"/water-damage"}
+                prefetch={false}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Water Damage
@@ -56,6 +60,7 @@ export default function Footer() {
             <li>
               <Link
                 href={"/roof-evaluation"}
+                prefetch={false}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Roof Evaluation
@@ -64,6 +69,7 @@ export default function Footer() {
             <li>
               <Link
                 href={"/free-assessment"}
+                prefetch={false}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Free Assessment
@@ -134,16 +140,31 @@ export default function Footer() {
           </ul>
         </div>
 
+        <div className="col-span-12 mt-15 border-t border-white/10 pt-8 text-sm text-white">
+          <h3 className="mb-4 text-sm font-semibold tracking-[0.25rem] uppercase">
+            Service Areas
+          </h3>
+          <p className="text-white/70">
+            {SERVICE_AREAS.map(
+              (group) => `${group.state}: ${group.cities.join(", ")}`
+            ).join(" — ")}
+          </p>
+        </div>
+
         <div className="col-span-12 text-sm text-white sm:col-span-6 sm:hidden md:order-1 md:mt-4 lg:mt-16 lg:justify-self-end">
           <h3 className="mb-8 text-sm font-semibold tracking-[0.25rem] uppercase md:hidden">
             Legal
           </h3>
           <ul className="flex flex-col gap-2 p-0 md:flex-row md:justify-end md:gap-5">
             <li>
-              <Link href={"/privacy-policy"}>Privacy Policy</Link>
+              <Link href={"/privacy-policy"} prefetch={false}>
+                Privacy Policy
+              </Link>
             </li>
             <li>
-              <Link href={"/cookie-policy"}>Cookie Policy</Link>
+              <Link href={"/cookie-policy"} prefetch={false}>
+                Cookie Policy
+              </Link>
             </li>
           </ul>
         </div>
@@ -154,10 +175,14 @@ export default function Footer() {
           </p>
           <ul className="hidden p-0 text-sm text-white sm:flex sm:gap-6 md:mt-4 lg:mt-16">
             <li>
-              <Link href={"/privacy-policy"}>Privacy Policy</Link>
+              <Link href={"/privacy-policy"} prefetch={false}>
+                Privacy Policy
+              </Link>
             </li>
             <li>
-              <Link href={"/cookie-policy"}>Cookie Policy</Link>
+              <Link href={"/cookie-policy"} prefetch={false}>
+                Cookie Policy
+              </Link>
             </li>
           </ul>
         </div>

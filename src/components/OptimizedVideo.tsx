@@ -2,6 +2,10 @@
 
 import { useEffect, useRef, useState } from "react";
 
+// Below this viewport width, the <source> media query won't match, so
+// browsers never fetch the video file — only the poster image is shown.
+const MOBILE_BREAKPOINT = "(min-width: 768px)";
+
 interface OptimizedVideoProps {
   src: string;
   poster?: string;
@@ -13,6 +17,7 @@ interface OptimizedVideoProps {
   playsInline?: boolean;
   preload?: "auto" | "metadata" | "none";
   loading?: "lazy" | "eager";
+  disableOnMobile?: boolean;
 }
 
 export default function OptimizedVideo({
@@ -26,6 +31,7 @@ export default function OptimizedVideo({
   playsInline = true,
   preload = "metadata",
   loading = "lazy",
+  disableOnMobile = false,
 }: OptimizedVideoProps) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [isInView, setIsInView] = useState(loading === "eager");
@@ -89,7 +95,13 @@ export default function OptimizedVideo({
       aria-label={alt}
       title={alt}
     >
-      {isInView && <source src={src} type="video/mp4" />}
+      {isInView && (
+        <source
+          src={src}
+          type="video/mp4"
+          media={disableOnMobile ? MOBILE_BREAKPOINT : undefined}
+        />
+      )}
       Your browser does not support the video tag.
     </video>
   );

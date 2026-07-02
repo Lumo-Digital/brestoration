@@ -4,7 +4,7 @@ import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import VideoCard from "@/components/VideoCard";
 import VideoCarousel from "@/components/VideoCarousel";
-import MapSection from "@/components/MapSection";
+import MapSection from "@/components/LazyMapSection";
 import CallToAction from "@/components/CallToAction";
 import OptimizedVideo from "@/components/OptimizedVideo";
 import {
@@ -52,6 +52,7 @@ export default function Home() {
             className="h-full w-full object-cover"
             loading="eager"
             preload="auto"
+            disableOnMobile
           />
           <div className="from-brand-dark-blue to-brand-dark-blue/40 absolute top-0 left-0 h-full w-full bg-linear-to-b" />
         </div>

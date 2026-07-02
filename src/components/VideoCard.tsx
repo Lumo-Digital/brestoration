@@ -29,6 +29,7 @@ export default function VideoCard({
         playsInline
         preload="metadata"
         loading="lazy"
+        disableOnMobile
       />
       <div className="bg-brand-dark-blue/80 absolute top-0 left-0 flex h-full w-full flex-col justify-end gap-6 p-6 text-white">
         {children}

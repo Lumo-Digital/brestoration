@@ -30,7 +30,11 @@ export default function LPFreeAssessmentPage() {
             poster={HERO_VIDEOS.home.poster}
             suppressHydrationWarning
           >
-            <source src={HERO_VIDEOS.home.src} type="video/mp4" />
+            <source
+              src={HERO_VIDEOS.home.src}
+              type="video/mp4"
+              media="(min-width: 768px)"
+            />
             {VIDEO_FALLBACK_TEXT}
           </video>
           <div className="from-brand-dark-blue to-brand-dark-blue/30 absolute top-0 left-0 h-full w-full bg-linear-to-b" />

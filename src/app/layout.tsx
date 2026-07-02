@@ -67,9 +67,6 @@ export const metadata: Metadata = {
       "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina. 24/7 emergency response.",
     images: ["/images/og.png"],
   },
-  verification: {
-    google: "your-google-verification-code",
-  },
   icons: {
     icon: [
       { url: "/icons/favicon-16x16.png", sizes: "16x16", type: "image/png" },
@@ -133,6 +130,15 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+        {process.env.NEXT_PUBLIC_MEDIA_URL && (
+          <link
+            rel="preconnect"
+            href={process.env.NEXT_PUBLIC_MEDIA_URL}
+            crossOrigin="anonymous"
+          />
+        )}
+      </head>
       <body className={`${montserratSans.variable} antialiased`}>
         {children}
         <Toaster richColors position="bottom-right" closeButton />
