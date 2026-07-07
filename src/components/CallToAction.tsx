@@ -1,5 +1,4 @@
-import Link from "next/link";
-import Button from "@/components/Button";
+import ScrollToFormButton from "@/components/ScrollToFormButton";
 import OptimizedVideo from "@/components/OptimizedVideo";
 import { HERO_VIDEOS } from "@/constants/videos";
 
@@ -23,9 +22,11 @@ export default function CallToAction() {
             assess your property and provide a detailed restoration plan.
             Contact us today for fast, professional service you can trust.
           </p>
-          <Link href="/free-assessment" className="w-full sm:w-fit">
-            <Button className="w-full">Book a free assessment</Button>
-          </Link>
+          <ScrollToFormButton
+            label="Book a free assessment"
+            className="w-full sm:w-fit"
+            buttonClassName="w-full"
+          />
         </div>
       </div>
     </section>

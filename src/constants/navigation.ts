@@ -11,7 +11,7 @@ export const NAV_ITEMS: NavItem[] = [
 export const CTA_BUTTONS = {
   freeAssessment: {
     label: "Book a free assessment",
-    href: "/free-assessment",
+    href: "/#form",
   },
   emergency: {
     label: "24/7 Emergency: Call now!",

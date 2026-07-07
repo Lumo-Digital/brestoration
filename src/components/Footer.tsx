@@ -1,6 +1,9 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
 import { SERVICE_AREAS } from "@/constants/serviceAreas";
+import { scrollToForm } from "@/utils/smoothScroll";
 
 export default function Footer() {
   return (
@@ -68,8 +71,8 @@ export default function Footer() {
             </li>
             <li>
               <Link
-                href={"/free-assessment"}
-                prefetch={false}
+                href={"/#form"}
+                onClick={scrollToForm}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Free Assessment

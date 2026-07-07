@@ -1,5 +1,6 @@
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import LeadFormSection from "@/components/LeadFormSection";
 import ScrollToTop from "@/components/ScrollToTop";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import StructuredData from "@/components/StructuredData";
@@ -21,6 +22,7 @@ export default function MainLayout({
         <ScrollToTop />
         <Header />
         {children}
+        <LeadFormSection />
         <Footer />
       </SmoothScrolling>
       <CookieConsentBanner />

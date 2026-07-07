@@ -1,8 +1,12 @@
+import type { MouseEvent } from "react";
 import { gsap } from "gsap";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+
+// Pages that don't render the lead form section (see LeadFormSection)
+const FORM_EXCLUDED_PATHS = ["/cookie-policy", "/privacy-policy"];
 
 /**
  * Smooth scroll to a target element using GSAP
@@ -38,4 +42,18 @@ export function smoothScrollTo(
       ScrollTrigger.refresh();
     },
   });
+}
+
+/**
+ * Click handler for CTAs linking to href="/#form". On pages that render the
+ * form (see FORM_EXCLUDED_PATHS), scrolls smoothly instead of navigating.
+ * On excluded pages, lets the Link navigate to the homepage's form section.
+ */
+export function scrollToForm(e: MouseEvent<HTMLElement>) {
+  if (FORM_EXCLUDED_PATHS.includes(window.location.pathname)) {
+    return;
+  }
+
+  e.preventDefault();
+  smoothScrollTo("#form", { offset: -80 });
 }

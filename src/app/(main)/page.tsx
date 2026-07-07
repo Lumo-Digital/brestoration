@@ -7,6 +7,7 @@ import VideoCarousel from "@/components/VideoCarousel";
 import MapSection from "@/components/LazyMapSection";
 import CallToAction from "@/components/CallToAction";
 import OptimizedVideo from "@/components/OptimizedVideo";
+import ScrollToFormButton from "@/components/ScrollToFormButton";
 import {
   SERVICES,
   WHY_CHOOSE_US_SECTION,
@@ -67,14 +68,11 @@ export default function Home() {
             property and restore your peace of mind.
           </p>
           <div className="flex w-full flex-col md:flex-row md:gap-4 lg:justify-start">
-            <Link
-              href={CTA_BUTTONS.freeAssessment.href}
+            <ScrollToFormButton
+              label={CTA_BUTTONS.freeAssessment.label}
               className="mb-4 w-full md:w-1/2 lg:w-fit"
-            >
-              <Button className="cursor-pointer">
-                {CTA_BUTTONS.freeAssessment.label}
-              </Button>
-            </Link>
+              buttonClassName="cursor-pointer"
+            />
             <a href="tel:+13054979125" className="w-full md:w-1/2 lg:w-fit">
               <Button className="cursor-pointer">
                 {CTA_BUTTONS.emergency.label}

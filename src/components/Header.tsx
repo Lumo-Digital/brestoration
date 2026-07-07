@@ -6,6 +6,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Button from "@/components/Button";
+import ScrollToFormButton from "@/components/ScrollToFormButton";
 import { SERVICES, CTA_BUTTONS } from "@/constants";
 import { smoothScrollTo } from "@/utils/smoothScroll";
 
@@ -102,12 +103,11 @@ export default function Header() {
             Contact
           </a>
 
-          <Link
-            href="/free-assessment"
+          <ScrollToFormButton
+            label="Get a FREE assessment"
             className="text-white transition-colors hover:text-gray-300"
-          >
-            <Button className="text-black">Get a FREE assessment</Button>
-          </Link>
+            buttonClassName="text-black"
+          />
         </div>
 
         {/* Mobile Menu Button */}
@@ -236,14 +236,12 @@ export default function Header() {
               ))} */}
             </ul>
             <div className="flex w-full flex-col gap-4 px-4 pb-4 sm:flex-row">
-              <Link
-                href={CTA_BUTTONS.freeAssessment.href}
+              <ScrollToFormButton
+                label={CTA_BUTTONS.freeAssessment.label}
                 className="w-full sm:w-1/2"
-              >
-                <Button className="cursor-pointer">
-                  {CTA_BUTTONS.freeAssessment.label}
-                </Button>
-              </Link>
+                buttonClassName="cursor-pointer"
+                onClick={toggleMenu}
+              />
               <Link
                 href={CTA_BUTTONS.emergency.href}
                 className="w-full sm:w-1/2"
