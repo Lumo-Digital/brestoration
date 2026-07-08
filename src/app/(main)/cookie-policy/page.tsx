@@ -370,8 +370,8 @@ export default function CookiePolicy() {
           </a>
           <br />
           Phone:{" "}
-          <a href="tel:+13053974966" className="text-blue-600 hover:underline">
-            Tel: +1&nbsp;305-397-4966
+          <a href="tel:+13365305926" className="text-blue-600 hover:underline">
+            Tel: +1&nbsp;336-530-5926
           </a>
         </p>
 

@@ -98,7 +98,7 @@ export default function Footer() {
             <li>
               <a
                 target="_blank"
-                href={"https://api.whatsapp.com/send?phone=13054979125"}
+                href={"https://api.whatsapp.com/send?phone=13365305926"}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Whatsapp
@@ -125,18 +125,10 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="tel:+13054979125"
+                href="tel:+13365305926"
                 className="text-white transition-colors hover:text-gray-300"
               >
-                +1 305 497 9125
-              </a>
-            </li>
-            <li>
-              <a
-                href="tel:+17046743965"
-                className="text-white transition-colors hover:text-gray-300"
-              >
-                +1 704-674-3965
+                +1 336 530 5926
               </a>
             </li>
             <li>FL, NC & SC</li>

@@ -15,8 +15,10 @@ export default function Header() {
   const [isServicesOpen, setIsServicesOpen] = useState(false);
   const pathname = usePathname();
 
-  const isPolicyPage =
-    pathname === "/cookie-policy" || pathname === "/privacy-policy";
+  const isWhiteBackgroundPage =
+    pathname === "/cookie-policy" ||
+    pathname === "/privacy-policy" ||
+    pathname === "/thank-you";
 
   const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
 
@@ -41,7 +43,7 @@ export default function Header() {
 
   return (
     <header
-      className={`absolute z-1000 w-full px-6 py-6 pb-7 ${isPolicyPage ? "bg-brand-dark-blue" : ""}`}
+      className={`absolute z-1000 w-full px-6 py-6 pb-7 ${isWhiteBackgroundPage ? "bg-brand-dark-blue" : ""}`}
     >
       <nav className="mx-auto flex max-w-7xl items-center justify-between">
         {/* Logo */}
@@ -197,11 +199,11 @@ export default function Header() {
                   </li>
                   <li>
                     <a
-                      href="tel:+13054979125"
+                      href="tel:+13365305926"
                       className="flex items-center gap-2 text-white transition-colors hover:text-gray-300"
                     >
                       <Phone className="h-4 w-4" />
-                      +1 305 497 9125
+                      +1 336 530 5926
                     </a>
                   </li>
                   <li>

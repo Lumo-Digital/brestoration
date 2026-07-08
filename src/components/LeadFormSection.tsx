@@ -4,7 +4,7 @@ import Script from "next/script";
 import { usePathname } from "next/navigation";
 
 // Keep in sync with FORM_EXCLUDED_PATHS in utils/smoothScroll.ts
-const EXCLUDED_PATHS = ["/cookie-policy", "/privacy-policy"];
+const EXCLUDED_PATHS = ["/cookie-policy", "/privacy-policy", "/thank-you"];
 
 export default function LeadFormSection() {
   const pathname = usePathname();

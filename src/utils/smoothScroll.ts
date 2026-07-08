@@ -6,7 +6,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
 
 // Pages that don't render the lead form section (see LeadFormSection)
-const FORM_EXCLUDED_PATHS = ["/cookie-policy", "/privacy-policy"];
+const FORM_EXCLUDED_PATHS = ["/cookie-policy", "/privacy-policy", "/thank-you"];
 
 /**
  * Smooth scroll to a target element using GSAP

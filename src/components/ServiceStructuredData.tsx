@@ -23,7 +23,7 @@ export default function ServiceStructuredData({
     provider: {
       "@type": "LocalBusiness",
       name: "Blue Restoration",
-      telephone: "+1-305-497-9125",
+      telephone: "+1-336-530-5926",
       address: {
         "@type": "PostalAddress",
         streetAddress: "3625 NW 82nd Ave Suite 111",
