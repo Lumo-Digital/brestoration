@@ -47,9 +47,7 @@ export default function ThankYouPage() {
 
         <div className="flex w-full flex-col gap-4 sm:w-auto sm:flex-row">
           <a href="tel:+13365305926" className="w-full sm:w-fit">
-            <Button className="cursor-pointer">
-              24/7 Emergency: Call now!
-            </Button>
+            <Button className="cursor-pointer">+1 336 530 5926</Button>
           </a>
           <Link href="/" className="w-full sm:w-fit">
             <Button className="bg-transparent text-[var(--color-default-font)] outline outline-[var(--color-default-font)] hover:opacity-70 hover:brightness-100">
