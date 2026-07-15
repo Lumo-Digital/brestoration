@@ -269,9 +269,10 @@ export default function CookiePolicy() {
         </h2>
 
         <p className="mb-4 leading-snug text-gray-700">
-          You have the right to decide whether to accept or reject cookies. Most
-          web browsers automatically accept cookies, but you can usually modify
-          your browser settings to decline cookies if you prefer.
+          Analytics and marketing cookies are enabled by default when you visit
+          our Website. You have the right to opt out at any time using the
+          cookie banner (&quot;Opt Out&quot; button) shown on your first visit,
+          your browser settings, or the tools listed below.
         </p>
 
         <h3 className="mt-4 mb-2 text-xl font-semibold text-gray-900">

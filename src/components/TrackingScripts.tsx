@@ -1,9 +1,22 @@
+"use client";
+
+import { useState } from "react";
 import Script from "next/script";
+import { getCookieConsentValue } from "react-cookie-consent";
 
 /**
- * Analytics Component
+ * TrackingScripts Component
  *
- * Loads Google Tag Manager and Meta Pixel on every visit
+ * Loads Google Tag Manager and Meta Pixel on every visit, unless the
+ * visitor has opted out via the cookie banner (opt-out model).
+ *
+ * The opt-out check runs as a lazy useState initializer (not a useEffect)
+ * because next/script's own mount effect for "afterInteractive" scripts
+ * fires before a parent's effects do — by the time an effect-based check
+ * could unmount <Script>, it would have already started loading.
+ * Computing it during render instead means an opted-out visitor's <Script>
+ * elements are never part of the tree in the first place, so their load
+ * effect never runs.
  *
  * Environment Variables Required:
  * - NEXT_PUBLIC_GTM_ID: Google Tag Manager ID (e.g., GTM-XXXXXXXX)
@@ -12,10 +25,20 @@ import Script from "next/script";
  * Usage:
  * Add to your root layout.tsx inside <body>
  */
-export default function Analytics() {
+export default function TrackingScripts() {
+  const [isOptedOut] = useState(
+    () =>
+      typeof document !== "undefined" &&
+      getCookieConsentValue("blue-restoration-cookie-consent") === "false"
+  );
+
   // Get IDs from environment variables
   const GTM_ID = process.env.NEXT_PUBLIC_GTM_ID;
   const META_PIXEL_ID = process.env.NEXT_PUBLIC_META_PIXEL_ID;
+
+  if (isOptedOut) {
+    return null;
+  }
 
   return (
     <>

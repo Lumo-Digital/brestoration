@@ -1,36 +1,38 @@
 # Cookie Consent Implementation
 
-This document explains the cookie consent system implemented for Blue Restoration, ensuring compliance with GDPR, CCPA, and other privacy regulations.
+This document explains the cookie consent system implemented for Blue Restoration. The site serves a US-only audience, so it uses a **CCPA-style opt-out model** rather than GDPR-style prior opt-in.
 
 ## Overview
 
 The cookie consent system uses `react-cookie-consent` to display a customizable banner that:
 
-- ✅ Requests user consent before loading analytics cookies
-- ✅ Complies with GDPR (Europe), CCPA (California), and other privacy laws
-- ✅ Allows users to accept or decline tracking cookies
+- ✅ Loads Google Tag Manager (Google Analytics) and Meta Pixel by default on every visit
+- ✅ Complies with CCPA (California) opt-out requirements
+- ✅ Lets users opt out of tracking cookies via the "Opt Out" button
 - ✅ Stores user preference for 365 days
-- ✅ Only loads Google Analytics and Meta Pixel after consent
+- ✅ Opt-out stops GTM/Meta Pixel from loading on the next page load and clears existing analytics cookies immediately
+
+**Note:** This model is not GDPR-compliant. If the site ever targets EU visitors, it would need to switch back to an opt-in model (no tracking scripts until explicit consent).
 
 ## Components
 
 ### 1. CookieConsentBanner (`src/components/CookieConsentBanner.tsx`)
 
-Displays the cookie consent banner at the bottom of the page with:
+Displays the cookie notice at the bottom of the page with:
 
 - Custom Blue Restoration branding
-- "Accept All" and "Decline" buttons
+- "I Understand" (dismiss) and "Opt Out" buttons
 - Links to Privacy Policy and Cookie Policy
 - Responsive design for mobile and desktop
+- Clears existing analytics cookies immediately when a user clicks "Opt Out"
 
-### 2. Analytics (`src/components/Analytics.tsx`)
+### 2. TrackingScripts (`src/components/TrackingScripts.tsx`)
 
-Conditionally loads analytics scripts based on user consent:
-
-- **Google Analytics 4** - Only loads if user accepts cookies
-- **Meta Pixel** - Only loads if user accepts cookies
-- Listens for consent changes and updates tracking accordingly
-- Clears analytics cookies when user declines
+Loads Google Tag Manager and Meta Pixel by default. On mount, it checks the
+`blue-restoration-cookie-consent` cookie via `getCookieConsentValue()`; if
+its value is `"false"` (opted out), it renders nothing instead of inserting
+the tracking `<Script>` tags. This check runs client-side so pages can stay
+statically generated.
 
 ## Setup Instructions
 
@@ -44,11 +46,11 @@ npm install react-cookie-consent
 
 ### Step 2: Configure Environment Variables
 
-Add your analytics IDs to `.env.local` (or `.env`):
+Add your IDs to `.env.local` (or `.env`):
 
 ```env
-# Google Analytics 4 Measurement ID
-NEXT_PUBLIC_GA_ID=G-XXXXXXXXXX
+# Google Tag Manager container ID
+NEXT_PUBLIC_GTM_ID=GTM-XXXXXXXX
 
 # Meta/Facebook Pixel ID
 NEXT_PUBLIC_META_PIXEL_ID=123456789012345
@@ -56,14 +58,13 @@ NEXT_PUBLIC_META_PIXEL_ID=123456789012345
 
 **Note:** These are optional. If you don't provide them, those services won't load.
 
-### Step 3: Get Your Analytics IDs
+### Step 3: Get Your IDs
 
-#### Google Analytics 4:
+#### Google Tag Manager:
 
-1. Go to [Google Analytics](https://analytics.google.com/)
-2. Create a new GA4 property or select existing one
-3. Go to Admin → Data Streams → Web
-4. Copy your Measurement ID (format: `G-XXXXXXXXXX`)
+1. Go to [Google Tag Manager](https://tagmanager.google.com/)
+2. Create a new container or select an existing one
+3. Copy your container ID (format: `GTM-XXXXXXXX`)
 
 #### Meta Pixel:
 
@@ -77,25 +78,23 @@ NEXT_PUBLIC_META_PIXEL_ID=123456789012345
 
 1. **First Visit:**
    - User visits the website
-   - Cookie consent banner appears at bottom
-   - No analytics scripts are loaded yet
+   - GTM and Meta Pixel load immediately (opt-out model)
+   - Cookie notice appears at the bottom
 
-2. **User Accepts:**
+2. **User Dismisses ("I Understand"):**
    - Banner disappears
-   - Consent stored in cookie for 365 days
-   - Google Analytics and Meta Pixel load immediately
-   - Tracking begins
+   - No cookie preference is stored — tracking continues as the default
 
-3. **User Declines:**
+3. **User Opts Out:**
    - Banner disappears
-   - Consent stored as "declined" for 365 days
-   - No analytics scripts load
-   - Any existing analytics cookies are cleared
+   - `blue-restoration-cookie-consent=false` stored for 365 days
+   - Any existing `_ga`, `_gid`, `_gat`, `_fbp`, `_fbc` cookies are cleared immediately
+   - `TrackingScripts` checks this cookie on mount (including on the next page load) and skips inserting GTM/Meta Pixel while it's `"false"`
 
 4. **Returning Visitors:**
-   - If consent was given: Analytics load automatically, no banner shown
-   - If consent was declined: No analytics, no banner
-   - Cookie expires after 365 days, banner shows again
+   - If no opt-out cookie is set: Tracking loads automatically, banner shown once per 365-day period
+   - If opted out: No GTM/Meta Pixel, no banner
+   - Cookie expires after 365 days, banner (and default tracking) resumes
 
 ### Technical Implementation:
 
@@ -104,12 +103,8 @@ NEXT_PUBLIC_META_PIXEL_ID=123456789012345
 "blue-restoration-cookie-consent";
 
 // Possible values
-"true"; // User accepted
-"false"; // User declined
-
-// Events dispatched
-"cookie-consent-accepted"; // When user clicks Accept
-"cookie-consent-declined"; // When user clicks Decline
+"true"; // User dismissed the banner without opting out
+"false"; // User opted out
 ```
 
 ## Testing
@@ -125,70 +120,53 @@ NEXT_PUBLIC_META_PIXEL_ID=123456789012345
 2. **Visit http://localhost:3000**
    - You should see the cookie banner
    - Open DevTools → Application → Cookies
-   - No analytics cookies should be present yet
+   - If GTM_ID/META_PIXEL_ID are set, you should already see `_ga`, `_gid`, `_fbp` cookies before interacting with the banner
 
-3. **Click "Accept All":**
+3. **Click "Opt Out":**
    - Banner disappears
-   - Check DevTools → Application → Cookies
-   - You should see `blue-restoration-cookie-consent=true`
-   - If GA_ID is set, you should see `_ga`, `_gid` cookies
-   - If META_PIXEL_ID is set, you should see `_fbp` cookies
-
-4. **Clear cookies and test "Decline":**
-   - Clear all cookies in DevTools
-   - Refresh page
-   - Click "Decline"
-   - Only `blue-restoration-cookie-consent=false` should be set
-   - No analytics cookies should appear
+   - You should see `blue-restoration-cookie-consent=false`
+   - Existing `_ga`, `_gid`, `_fbp` cookies are cleared immediately
+   - Reload the page — GTM/Meta Pixel scripts should no longer be present in the page source
 
 ### Test Cookie Clearing:
 
-1. Accept cookies (analytics cookies appear)
-2. Clear cookies manually
-3. Refresh page and decline
-4. Verify analytics cookies are removed
+1. Load the site (analytics cookies appear)
+2. Click "Opt Out"
+3. Verify analytics cookies are removed and don't reappear on reload
 
 ## Legal Compliance
-
-### GDPR (EU) Requirements:
-
-✅ Explicit consent before setting non-essential cookies
-✅ Clear information about what cookies are used
-✅ Easy way to decline cookies
-✅ Links to Privacy Policy and Cookie Policy
-✅ Consent expires after reasonable period (365 days)
 
 ### CCPA (California) Requirements:
 
 ✅ Notice of data collection
-✅ Opt-out mechanism (Decline button)
+✅ Functional opt-out mechanism ("Opt Out" button, enforced on the next page load)
 ✅ Link to privacy policy
+
+### Not GDPR-compliant:
+
+GDPR (EU) requires explicit opt-in **before** non-essential cookies load. This
+implementation loads tracking by default, so it should not be used as-is for
+EU visitors.
 
 ### Best Practices:
 
-✅ No analytics cookies before consent
-✅ Consent stored locally (not tracking users who decline)
+✅ Consent/opt-out stored for a reasonable period (365 days)
 ✅ Clear, plain language
-✅ No pre-checked boxes or dark patterns
 ✅ Easy to understand and use
 
 ## Customization
 
 ### Change Banner Text:
 
-Edit [src/components/CookieConsentBanner.tsx:86-89](src/components/CookieConsentBanner.tsx#L86-L89):
-
-```tsx
-We use cookies to enhance your browsing experience...
-```
+Edit the banner copy in [src/components/CookieConsentBanner.tsx](src/components/CookieConsentBanner.tsx) (inside the `<CookieConsent>` children).
 
 ### Change Banner Colors:
 
-Edit the `style`, `buttonStyle`, and `declineButtonStyle` props in [src/components/CookieConsentBanner.tsx:58-84](src/components/CookieConsentBanner.tsx#L58-L84)
+Edit the `style`, `buttonStyle`, and `declineButtonStyle` props in [src/components/CookieConsentBanner.tsx](src/components/CookieConsentBanner.tsx)
 
-### Add More Analytics Services:
+### Add More Tracking Services:
 
-Edit [src/components/Analytics.tsx](src/components/Analytics.tsx) and add additional `<Script>` tags for other services.
+Edit [src/components/TrackingScripts.tsx](src/components/TrackingScripts.tsx) and add additional `<Script>` tags for other services.
 
 ## Privacy Policy & Cookie Policy
 
@@ -213,11 +191,12 @@ These pages are already set up at:
 - Clear browser cache and cookies
 - Check console for errors
 
-### Analytics not loading after accept:
+### Analytics not loading:
 
 - Verify environment variables are set correctly
 - Check browser console for script loading errors
 - Make sure IDs are in correct format
+- Check whether `blue-restoration-cookie-consent=false` is set (opted out)
 
 ### Banner appears every time:
 

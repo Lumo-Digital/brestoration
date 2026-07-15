@@ -7,15 +7,16 @@ import Link from "next/link";
 /**
  * CookieConsentBanner Component
  *
- * Displays a GDPR/CCPA compliant cookie consent banner
- * Manages user consent for analytics cookies (Google Analytics, Meta Pixel)
+ * Displays a CCPA-compliant cookie notice for an opt-out model:
+ * analytics and marketing cookies (Google Analytics, Meta Pixel) load by
+ * default, and this banner lets visitors opt out.
  *
  * Features:
  * - Custom styling matching Blue Restoration brand
- * - Decline and Accept buttons
+ * - "I Understand" (dismiss) and "Opt Out" buttons
  * - Links to Privacy Policy and Cookie Policy
- * - Stores consent in localStorage
- * - Triggers analytics initialization only after consent
+ * - Opt-out takes effect on the next page load and clears existing
+ *   analytics cookies immediately
  */
 export default function CookieConsentBanner() {
   const [isMounted, setIsMounted] = useState(false);
@@ -29,25 +30,9 @@ export default function CookieConsentBanner() {
     return () => clearTimeout(timer);
   }, []);
 
-  const handleAcceptCookie = () => {
-    // Enable analytics tracking
-    if (typeof window !== "undefined") {
-      window.gtag_consent = true;
-
-      // Trigger analytics initialization
-      const event = new CustomEvent("cookie-consent-accepted");
-      window.dispatchEvent(event);
-    }
-  };
-
   const handleDeclineCookie = () => {
-    // Disable analytics tracking
     if (typeof window !== "undefined") {
-      window.gtag_consent = false;
-
-      // Trigger analytics cleanup
-      const event = new CustomEvent("cookie-consent-declined");
-      window.dispatchEvent(event);
+      clearAnalyticsCookies();
     }
   };
 
@@ -59,11 +44,10 @@ export default function CookieConsentBanner() {
   return (
     <CookieConsent
       location="bottom"
-      buttonText="Accept All"
-      declineButtonText="Decline"
+      buttonText="I Understand"
+      declineButtonText="Opt Out"
       cookieName="blue-restoration-cookie-consent"
       enableDeclineButton
-      onAccept={handleAcceptCookie}
       onDecline={handleDeclineCookie}
       expires={365}
       style={{
@@ -107,9 +91,10 @@ export default function CookieConsentBanner() {
     >
       <div className="mr-4 flex flex-col gap-2 sm:flex-row sm:items-center sm:gap-4">
         <span className="flex-1">
-          We use cookies to enhance your browsing experience, analyze our
-          traffic, and personalize content. By clicking &quot;Accept All&quot;,
-          you consent to our use of cookies for analytics and marketing.
+          We use cookies, including analytics and marketing cookies (Google
+          Analytics, Meta Pixel), to enhance your browsing experience and
+          understand site traffic. These are enabled by default; you can opt out
+          at any time.
         </span>
         <div className="flex gap-2 text-sm">
           <Link
@@ -131,9 +116,26 @@ export default function CookieConsentBanner() {
   );
 }
 
-// TypeScript declaration for global window object
-declare global {
-  interface Window {
-    gtag_consent?: boolean;
+/**
+ * Clear analytics cookies immediately when a user opts out, so tracking
+ * stops right away instead of waiting for the next page load.
+ */
+function clearAnalyticsCookies() {
+  const cookies = document.cookie.split(";");
+
+  for (const cookie of cookies) {
+    const eqPos = cookie.indexOf("=");
+    const name = eqPos > -1 ? cookie.slice(0, eqPos).trim() : cookie.trim();
+
+    if (
+      name.startsWith("_ga") ||
+      name.startsWith("_gid") ||
+      name.startsWith("_gat") ||
+      name.startsWith("_fbp") ||
+      name.startsWith("_fbc")
+    ) {
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=${window.location.hostname}`;
+      document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
+    }
   }
 }
