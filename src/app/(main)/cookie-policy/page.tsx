@@ -270,9 +270,8 @@ export default function CookiePolicy() {
 
         <p className="mb-4 leading-snug text-gray-700">
           Analytics and marketing cookies are enabled by default when you visit
-          our Website. You have the right to opt out at any time using the
-          cookie banner (&quot;Opt Out&quot; button) shown on your first visit,
-          your browser settings, or the tools listed below.
+          our Website. You have the right to opt out at any time using your
+          browser settings or the tools listed below.
         </p>
 
         <h3 className="mt-4 mb-2 text-xl font-semibold text-gray-900">

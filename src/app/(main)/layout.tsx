@@ -4,7 +4,6 @@ import LeadFormSection from "@/components/LeadFormSection";
 import ScrollToTop from "@/components/ScrollToTop";
 import SmoothScrolling from "@/components/SmoothScrolling";
 import StructuredData from "@/components/StructuredData";
-import CookieConsentBanner from "@/components/CookieConsentBanner";
 import TrackingScripts from "@/components/TrackingScripts";
 import GTMNoscript from "@/components/GTMNoscript";
 
@@ -25,7 +24,6 @@ export default function MainLayout({
         <LeadFormSection />
         <Footer />
       </SmoothScrolling>
-      <CookieConsentBanner />
     </>
   );
 }
