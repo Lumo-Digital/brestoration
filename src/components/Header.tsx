@@ -248,7 +248,8 @@ export default function Header() {
                 href={CTA_BUTTONS.emergency.href}
                 className="w-full sm:w-1/2"
               >
-                <Button className="cursor-pointer">
+                <Button className="flex cursor-pointer items-center justify-center gap-2">
+                  <Phone className="size-4" />
                   {CTA_BUTTONS.emergency.label}
                 </Button>
               </Link>

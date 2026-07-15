@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Phone } from "lucide-react";
 import Button from "@/components/Button";
 import Eyebrow from "@/components/Eyebrow";
 import VideoCard from "@/components/VideoCard";
 import VideoCarousel from "@/components/VideoCarousel";
-import MapSection from "@/components/LazyMapSection";
 import CallToAction from "@/components/CallToAction";
 import OptimizedVideo from "@/components/OptimizedVideo";
 import ScrollToFormButton from "@/components/ScrollToFormButton";
@@ -74,7 +74,8 @@ export default function Home() {
               buttonClassName="cursor-pointer"
             />
             <a href="tel:+13365305926" className="w-full md:w-1/2 lg:w-fit">
-              <Button className="cursor-pointer">
+              <Button>
+                <Phone className="mr-2 h-5 w-5" />
                 {CTA_BUTTONS.emergency.label}
               </Button>
             </a>
@@ -143,7 +144,6 @@ export default function Home() {
           <VideoCarousel videos={VIDEO_CAROUSEL_SECTION.videos} />
         </div>
       </section>
-      <MapSection />
       <section id="cta" className="relative">
         <CallToAction />
       </section>
