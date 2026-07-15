@@ -5,7 +5,6 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { ScrollToPlugin } from "gsap/ScrollToPlugin";
 import Eyebrow from "@/components/Eyebrow";
-import MapSection from "@/components/LazyMapSection";
 import CallToAction from "@/components/CallToAction";
 import VideoCarousel from "@/components/VideoCarousel";
 import OptimizedVideo from "@/components/OptimizedVideo";
@@ -146,7 +145,6 @@ export default function StormDamage() {
             <VideoCarousel videos={VIDEO_CAROUSEL_SECTION.videos} />
           </div>
         </section>
-        <MapSection />
         <section id="cta" className="relative">
           <CallToAction />
         </section>
