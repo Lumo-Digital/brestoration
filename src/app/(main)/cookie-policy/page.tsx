@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { CTA_BUTTONS } from "@/constants";
 
 export const metadata: Metadata = {
   title: "Cookie Policy - Blue Restoration",
@@ -370,8 +371,11 @@ export default function CookiePolicy() {
           </a>
           <br />
           Phone:{" "}
-          <a href="tel:+13365305926" className="text-blue-600 hover:underline">
-            Tel: +1&nbsp;336-530-5926
+          <a
+            href={CTA_BUTTONS.emergency.href}
+            className="text-blue-600 hover:underline"
+          >
+            Tel: {CTA_BUTTONS.emergency.label}
           </a>
         </p>
 

@@ -3,6 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SERVICE_AREAS } from "@/constants/serviceAreas";
+import { CTA_BUTTONS } from "@/constants";
 import { scrollToForm } from "@/utils/smoothScroll";
 
 export default function Footer() {
@@ -125,10 +126,10 @@ export default function Footer() {
             </li>
             <li>
               <a
-                href="tel:+13365305926"
+                href={CTA_BUTTONS.emergency.href}
                 className="text-white transition-colors hover:text-gray-300"
               >
-                +1 336 530 5926
+                {CTA_BUTTONS.emergency.label}
               </a>
             </li>
             <li>FL, NC & SC</li>

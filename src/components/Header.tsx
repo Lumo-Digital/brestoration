@@ -199,11 +199,11 @@ export default function Header() {
                   </li>
                   <li>
                     <a
-                      href="tel:+13365305926"
+                      href={CTA_BUTTONS.emergency.href}
                       className="flex items-center gap-2 text-white transition-colors hover:text-gray-300"
                     >
                       <Phone className="h-4 w-4" />
-                      +1 336 530 5926
+                      {CTA_BUTTONS.emergency.label}
                     </a>
                   </li>
                   <li>
