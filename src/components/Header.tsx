@@ -54,6 +54,7 @@ export default function Header() {
               height={40}
               width={143}
               alt="Blue Restoration Logo"
+              priority
             />
           </Link>
         </div>
