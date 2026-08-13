@@ -190,11 +190,11 @@ export default function Header() {
                 <ul className="flex flex-col gap-3 text-sm text-white">
                   <li>
                     <a
-                      href="mailto:info@brestorations.com"
+                      href="mailto:intake@brestorations.com"
                       className="flex items-center gap-2 text-white transition-colors hover:text-gray-300"
                     >
                       <Mail className="h-4 w-4" />
-                      info@brestorations.com
+                      intake@brestorations.com
                     </a>
                   </li>
                   <li>

@@ -297,10 +297,10 @@ export default function PrivacyPolicy() {
           <br />
           Email:{" "}
           <a
-            href="mailto:info@brestorations.com"
+            href="mailto:intake@brestorations.com"
             className="text-blue-600 hover:underline"
           >
-            info@brestorations.com
+            intake@brestorations.com
           </a>
           <br />
           Phone:{" "}

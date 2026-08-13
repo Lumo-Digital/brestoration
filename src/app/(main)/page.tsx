@@ -73,7 +73,7 @@ export default function Home() {
               className="mb-4 w-full md:w-1/2 lg:w-fit"
               buttonClassName="cursor-pointer"
             />
-            <a href="tel:+13365305926" className="w-full md:w-1/2 lg:w-fit">
+            <a href="tel:+15613175125" className="w-full md:w-1/2 lg:w-fit">
               <Button>
                 <Phone className="mr-2 h-5 w-5" />
                 {CTA_BUTTONS.emergency.label}

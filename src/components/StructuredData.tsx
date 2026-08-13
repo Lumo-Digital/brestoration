@@ -47,8 +47,8 @@ export default function StructuredData() {
     description:
       "Professional water damage, fire damage, mold evaluation, and storm damage restoration services in Florida, South Carolina and North Carolina.",
     url: "https://brestorations.com",
-    telephone: "+1-336-530-5926",
-    email: "info@brestorations.com",
+    telephone: "+1-561-317-5125",
+    email: "intake@brestorations.com",
     address: {
       "@type": "PostalAddress",
       streetAddress: "3625 NW 82nd Ave Suite 111",
@@ -80,7 +80,7 @@ export default function StructuredData() {
     ],
     sameAs: [
       "https://www.instagram.com/bluerestoration.services",
-      "https://api.whatsapp.com/send?phone=13365305926",
+      "https://api.whatsapp.com/send?phone=15613175125",
     ],
     areaServed: [
       ...SERVICE_AREAS.map((group) => group.state),

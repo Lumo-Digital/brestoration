@@ -99,7 +99,7 @@ export default function Footer() {
             <li>
               <a
                 target="_blank"
-                href={"https://api.whatsapp.com/send?phone=13365305926"}
+                href={"https://api.whatsapp.com/send?phone=15613175125"}
                 className="text-white transition-colors hover:text-gray-300"
               >
                 Whatsapp
@@ -118,10 +118,10 @@ export default function Footer() {
           <ul className="flex flex-col gap-2 p-0 md:text-right">
             <li>
               <a
-                href="mailto:info@brestorations.com"
+                href="mailto:intake@brestorations.com"
                 className="text-white transition-colors hover:text-gray-300"
               >
-                info@brestorations.com
+                intake@brestorations.com
               </a>
             </li>
             <li>

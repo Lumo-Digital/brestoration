@@ -14,7 +14,7 @@ export const CTA_BUTTONS = {
     href: "/#form",
   },
   emergency: {
-    label: "(336) 530-5926",
-    href: "tel:+13365305926",
+    label: "(561) 317-5125",
+    href: "tel:+15613175125",
   },
 } as const;
