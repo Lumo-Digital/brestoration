@@ -3,3 +3,4 @@ export * from "./services";
 export * from "./navigation";
 export * from "./whyChooseUs";
 export * from "./videos";
+export * from "./contact";

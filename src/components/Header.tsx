@@ -7,7 +7,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import Button from "@/components/Button";
 import ScrollToFormButton from "@/components/ScrollToFormButton";
-import { SERVICES, CTA_BUTTONS } from "@/constants";
+import { SERVICES, CTA_BUTTONS, CONTACT_EMAIL } from "@/constants";
 import { smoothScrollTo } from "@/utils/smoothScroll";
 
 export default function Header() {
@@ -191,11 +191,11 @@ export default function Header() {
                 <ul className="flex flex-col gap-3 text-sm text-white">
                   <li>
                     <a
-                      href="mailto:intake@brestorations.com"
+                      href={`mailto:${CONTACT_EMAIL}`}
                       className="flex items-center gap-2 text-white transition-colors hover:text-gray-300"
                     >
                       <Mail className="h-4 w-4" />
-                      intake@brestorations.com
+                      {CONTACT_EMAIL}
                     </a>
                   </li>
                   <li>

@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Resend } from "resend";
 import { buildLeadEmailHtml } from "./email-template";
+import { CONTACT_EMAIL } from "@/constants";
 
 const FROM_EMAIL = "Blue Restoration <noreply@notifications.brestorations.com>";
-const ADMIN_EMAILS = ["hernan.baravalle@gmail.com"];
+const ADMIN_EMAILS = ["hernan.baravalle@gmail.com", CONTACT_EMAIL];
 
 export async function POST(request: NextRequest) {
   try {

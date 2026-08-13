@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { SERVICE_AREAS } from "@/constants/serviceAreas";
-import { CTA_BUTTONS } from "@/constants";
+import { CTA_BUTTONS, CONTACT_EMAIL } from "@/constants";
 import { scrollToForm } from "@/utils/smoothScroll";
 
 export default function Footer() {
@@ -118,10 +118,10 @@ export default function Footer() {
           <ul className="flex flex-col gap-2 p-0 md:text-right">
             <li>
               <a
-                href="mailto:intake@brestorations.com"
+                href={`mailto:${CONTACT_EMAIL}`}
                 className="text-white transition-colors hover:text-gray-300"
               >
-                intake@brestorations.com
+                {CONTACT_EMAIL}
               </a>
             </li>
             <li>
