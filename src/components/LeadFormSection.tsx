@@ -25,6 +25,7 @@ const formSchema = z.object({
   phone: z.string().optional(),
   zipcode: z.string().optional(),
   comments: z.string().optional(),
+  website: z.string().optional(),
 });
 
 type FormData = z.infer<typeof formSchema>;
@@ -55,6 +56,7 @@ export default function LeadFormSection() {
       phone: "",
       zipcode: "",
       comments: "",
+      website: "",
     },
   });
 
@@ -117,7 +119,7 @@ export default function LeadFormSection() {
       hasInsurance:
         data.hasInsurance?.charAt(0).toUpperCase() +
         data.hasInsurance?.slice(1),
-      tags: ["website lead"],
+      website: data.website,
     };
 
     try {
@@ -178,6 +180,17 @@ export default function LeadFormSection() {
         className="mx-auto w-full max-w-[800px]"
         onSubmit={handleSubmit(onSubmit, onError)}
       >
+        {/* Honeypot: hidden from people, bots fill it. Checked in /api/contact. */}
+        <div className="hidden" aria-hidden="true">
+          <label htmlFor="website">Website</label>
+          <input
+            type="text"
+            id="website"
+            tabIndex={-1}
+            autoComplete="off"
+            {...register("website")}
+          />
+        </div>
         <fieldset>
           <legend className="mb-8 text-sm font-semibold tracking-[0.25rem] uppercase">
             Service of interest <span className="text-red-500">*</span>
